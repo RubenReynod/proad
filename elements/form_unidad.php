@@ -8,7 +8,7 @@
             <p class="nombre"><b>Nombre de la materia: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['NombreMateria']; ?></p>
       </div>
       <div class="col-xs-9">
-              <nav id="tab_unidad">
+              <nav id="tab_unidad"  class="table_tabs">
 
               </nav>
       </div>

@@ -17,11 +17,11 @@ $('#home').ready(function(){
 function show_lightbox(){
 	  $('.lightbox').addClass('active');
 }
-function show_lightbox(cual,tipo){
+function show_lightbox(cual,tipo,id=''){
 	  if (tipo=="subtema") {
 	  	  $('.'+cual).find('.title').text('Agregar Subtema');
 				$('.'+cual).find('.campo').attr('placeholder','Subtema 1');
-				$('.'+cual).find('.btn_add').attr('onclick','add_form("subtema");');
+				$('.'+cual).find('.btn_add').attr('onclick','add_form("subtema","'+id+'");');
 	  }
 		else if (tipo=="unidad") {
 	  	  $('.'+cual).find('.title').text('Agregar Unidad');
@@ -163,26 +163,30 @@ function mostrar_select (btn){
 }
 
 var lista = new Map(),
-    cont_unidad = 1;
-function add_form(tipo){
-	 /*var nombre = $('.lightbox .campo').val(),
-	     tab = '',
-			 formulario = '';*/
+    cont_ = 1;
+function add_form(tipo,id = ''){
+	 var nombre = $('.lightbox .campo').val(),
+	     tab = '<li class="tab tab-'+cont_+'"><b onclick="show_form_unidad('+cont_+');">'+nombre+'</b><i class="fa fa-times" aria-hidden="true" onclick="remove_unidad('+cont_+');"></i></li>';
+			 formulario = '';
 	 if (tipo=='unidad') {
-     var nombre = $('.lightbox .campo').val(),
-		     tab = '<li class="tab tab-'+cont_unidad+'"><b onclick="show_form_unidad('+cont_unidad+');">'+nombre+'</b><i class="fa fa-times" aria-hidden="true" onclick="remove_unidad('+cont_unidad+');"></i></li>';
-				 formulario = '<form class="form_unidad form_u-'+cont_unidad+'" action="../db/guardar_unidad.php" method="post">'+
+				 formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_unidad.php" method="post">'+
                            '<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
                            '<input class="Fecha_real" type="date" name="" value="" required>'+
                            '<input class="Fecha_programada" type="date" name="" value="" required>'+
                       '</form>';
-				 lista.set(cont_unidad+"",nombre);
-				 cont_unidad = cont_unidad+1;
-		     close_lightbox();
-		     $('.lightbox .unidad input[type="text"]').val('');
-		     $('#tab_unidad').append(tab);
-		     $('#formularios').append(formulario);
+		}else if (tipo=='subtema') {
+			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_unidad.php" method="post">'+
+												'<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
+												'<input class="Fecha_real" type="date" name="" value="" required>'+
+												'<input class="Fecha_programada" type="date" name="" value="" required>'+
+									 '</form>';
 		}
+		lista.set(cont_+"",nombre);
+		cont_ = cont_+1;
+		close_lightbox();
+		$('.lightbox .campo').val('');
+		$('#tab_'+tipo+id).append(tab);
+		$('#formularios').append(formulario);
 
 }
 function add_row_unidad(nombre,Fp,Fr){

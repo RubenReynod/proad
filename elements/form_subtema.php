@@ -18,12 +18,12 @@
       <div class="col-xs-10 forms__" id="<?='form-'.$key ?>" status="inactive">
             <div class="row">
                    <div class="col-xs-9">
-                         <nav id="tab_unidad">
+                         <nav id="tab_subtema<?=$key;?>" class="table_tabs">
 
                          </nav>
                    </div>
                    <div class="col-xs-3">
-                           <button class="btn_form btn_agregar" onclick="show_lightbox('lightbox-add','subtema');"><i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar Subtema</button>
+                           <button class="btn_form btn_agregar" onclick="show_lightbox('lightbox-add','subtema',<?=$key;?>);"><i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar Subtema</button>
                    </div>
             </div>
             <div class="row">

@@ -8037,10 +8037,10 @@ button.close {
 .usuario .secciones .inicio.azul h2 {
   background: #0d8cab;
 }
-.usuario .secciones #tab_unidad {
+.usuario .secciones .table_tabs {
   text-align: left;
 }
-.usuario .secciones #tab_unidad li {
+.usuario .secciones .table_tabs li {
   -webkit-transition: all 700ms ease-in-out;
   transition: all 700ms ease-in-out;
   position: relative;
@@ -8052,11 +8052,11 @@ button.close {
   box-shadow: 2px 2px 5px 0 #11707c;
   opacity: 0.8;
 }
-.usuario .secciones #tab_unidad li b {
+.usuario .secciones .table_tabs li b {
   line-height: 2.2;
   padding: 6px 10px;
 }
-.usuario .secciones #tab_unidad li i {
+.usuario .secciones .table_tabs li i {
   -webkit-transition: all 130ms ease-in-out;
   transition: all 130ms ease-in-out;
   position: absolute;
@@ -8070,16 +8070,16 @@ button.close {
   padding: 1px 3px;
   z-index: 10;
 }
-.usuario .secciones #tab_unidad li i:hover {
+.usuario .secciones .table_tabs li i:hover {
   color: #c03935;
 }
-.usuario .secciones #tab_unidad li:hover {
+.usuario .secciones .table_tabs li:hover {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
   opacity: 1;
 }
-.usuario .secciones #tab_unidad li.active {
+.usuario .secciones .table_tabs li.active {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
