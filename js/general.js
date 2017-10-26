@@ -179,15 +179,17 @@ function add_form(tipo,id = ''){
 												'<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
 												'<input class="Fecha_real" type="date" name="" value="" required>'+
 												'<input class="Fecha_programada" type="date" name="" value="" required>'+
+												'<input class="actividad" type="text" name="" value="" placeholder="Actividad" required>'+
+												'<input class="recurso" type="text" name="" value="" placeholder="Recurso" required>'+
 									 '</form>';
 		}
-		lista.set(cont_+"",nombre);
+		lista.set(cont_+"",$('#tab_'+tipo+id).parents('.forms__').attr('id'));
+		console.log($('#tab_'+tipo+id).parents('.forms__').attr('id'));
 		cont_ = cont_+1;
 		close_lightbox();
 		$('.lightbox .campo').val('');
 		$('#tab_'+tipo+id).append(tab);
-		$('#formularios').append(formulario);
-
+		$('#tab_'+tipo+id).parents('.forms__').find('.formularios').append(formulario);
 }
 function add_row_unidad(nombre,Fp,Fr){
 	  var cont = $('#crear_unidades .table_ .row_table').length;
@@ -224,7 +226,7 @@ function remove_unidad(cual){
 		var nombre=$(".form_u-"+llave).find(".nombre").val(),
 		Fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
 		Fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
-		id_materia=$('.info_materia .clave').attr('id');;
+		id_materia=$('.info_materia .clave').attr('id');
 		if (nombre=="" | Fecha_real=="" | Fecha_programada =="") {
          alert("Datos incompletos");
 	  }else{
@@ -248,6 +250,25 @@ function remove_unidad(cual){
       $(".form_u-"+llave).submit();
 	 }
  	});
+ }
+
+ function guardar_subtema(btn){
+     var unidad = $(btn).parents('.forms__').attr('id');
+     lista.forEach(function(valor,llave){
+         if(valor==unidad){
+              var nombre=$(".form_u-"+llave).find(".nombre").val(),
+                  fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
+                  fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
+                  actividad=$(".form_u-"+llave).find(".actividad").val(),
+                  recurso=$(".form_u-"+llave).find(".recurso").val();
+                  console.log(recurso+"-"+nombre);
+              if (nombre=="" | fecha_real=="" | fecha_programada =="" | actividad =="" | recurso =="") {
+                   alert("Datos incompletos");
+              }else{
+
+              }
+         }
+     });
  }
 
  // tablas Subtemas

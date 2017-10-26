@@ -27,7 +27,7 @@
                    </div>
             </div>
             <div class="row">
-                <div class="col-sm-5" id="formularios">
+                <div class="col-sm-5 formularios">
 
                 </div>
                 <div class="col-sm-7 table_">
@@ -75,7 +75,7 @@
                      <?php endforeach; ?>
                 </div>
             </div>
-            <button type="button" class ="btn_form" onclick="guardar_unidad();">Guardar</button>
+            <button type="button" class ="btn_form" onclick="guardar_subtema(this);">Guardar</button>
       </div>
       <?php endforeach; ?>
 </div>

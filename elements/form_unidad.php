@@ -15,7 +15,7 @@
       <div class="col-xs-3">
               <button class="btn_form btn_agregar" onclick="show_lightbox('lightbox-add','unidad');"><i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar unidad</button>
       </div>
-      <div class="col-sm-7" id="formularios">
+      <div class="col-sm-7 formularios">
 
       </div>
       <div class="col-sm-5 table_">
