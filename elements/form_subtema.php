@@ -75,6 +75,7 @@
                      <?php endforeach; ?>
                 </div>
             </div>
+            <button type="button" class ="btn_form" onclick="guardar_unidad();">Guardar</button>
       </div>
       <?php endforeach; ?>
 </div>
