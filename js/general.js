@@ -175,7 +175,7 @@ function add_form(tipo,id = ''){
                            '<input class="Fecha_programada" type="date" name="" value="" required>'+
                       '</form>';
 		}else if (tipo=='subtema') {
-			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_unidad.php" method="post">'+
+			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_subtema.php" method="post">'+
 												'<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
 												'<input class="Fecha_real" type="date" name="" value="" required>'+
 												'<input class="Fecha_programada" type="date" name="" value="" required>'+
@@ -260,12 +260,32 @@ function remove_unidad(cual){
                   fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
                   fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
                   actividad=$(".form_u-"+llave).find(".actividad").val(),
-                  recurso=$(".form_u-"+llave).find(".recurso").val();
-                  console.log(recurso+"-"+nombre);
+                  recurso=$(".form_u-"+llave).find(".recurso").val(),
+                  id_materia=$('.info_materia .clave').attr('id'),
+                  idunidad = ($(btn).parents('.forms__').attr('id')).substr(($(btn).parents('.forms__').attr('id')).indexOf('-')+1);
+                  console.log(id_materia);
               if (nombre=="" | fecha_real=="" | fecha_programada =="" | actividad =="" | recurso =="") {
                    alert("Datos incompletos");
               }else{
-
+                   $(".form_u-"+llave).submit(function(evento){
+                       evento.preventDefault();
+                       $.ajax({
+                       	   type:'post',
+                       	   data:{id_materia:id_materia,nombre:nombre,fecha_real:fecha_real,fecha_programada:fecha_programada,actividad:actividad,recurso:recurso,unidad:idunidad},
+                       	   url: $(this).attr('action'),
+                       	   success: function(respuesta){
+                       	   	console.log(respuesta);
+                               if (respuesta==1) {
+                               	   alert("Se guardo correstamente");
+                               	   //remove_unidad(llave);
+                               	   //add_row_unidad(nombre,Fecha_programada,fecha_real,actividad,recurso);
+                               }else{
+                               	   alert("error");
+                               }
+                       	   }
+                       });
+                   });
+                   $(".form_u-"+llave).submit();
               }
          }
      });
