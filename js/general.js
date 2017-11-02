@@ -184,7 +184,6 @@ function add_form(tipo,id = ''){
 									 '</form>';
 		}
 		lista.set(cont_+"",$('#tab_'+tipo+id).parents('.forms__').attr('id'));
-		console.log($('#tab_'+tipo+id).parents('.forms__').attr('id'));
 		cont_ = cont_+1;
 		close_lightbox();
 		$('.lightbox .campo').val('');
@@ -193,7 +192,7 @@ function add_form(tipo,id = ''){
 }
 function add_row_unidad(nombre,Fp,Fr){
 	  var cont = $('#crear_unidades .table_ .row_table').length;
-	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'clear')+'">'+
+	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
 				         '<div class="nombre col-xs-4 nopadding">'+
 							       '<p>'+nombre+'</p>'+
 				         '</div>'+
@@ -205,6 +204,27 @@ function add_row_unidad(nombre,Fp,Fr){
 				         '</div>'+
 		         '</div>';
 		$('#crear_unidades .table_').append(row);
+}
+function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
+	  var cont = $('#form-'+table+' .table_ .row_table').length;
+	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
+				         '<div class="nombre col-xs-2 nopadding">'+
+							       '<p>'+nombre+'</p>'+
+				         '</div>'+
+				         '<div class="fecha_pro col-xs-2 nopadding">'+
+							       '<p>'+Fp+'</p>'+
+				         '</div>'+
+				         '<div class="fecha_real col-xs-2 nopadding">'+
+							       '<p>'+Fr+'</p>'+
+				         '</div>'+
+				         '<div class="actividad col-xs-3 nopadding">'+
+							       '<p>'+actividad+'</p>'+
+				         '</div>'+
+				         '<div class="recurso col-xs-3 nopadding">'+
+							       '<p>'+recurso+'</p>'+
+				         '</div>'+
+		         '</div>';
+		$('#form-'+table+' .table_').append(row);
 }
 function show_form_unidad(cual){
 	  $('.form_unidad').slideUp('slow');
@@ -263,7 +283,6 @@ function remove_unidad(cual){
                   recurso=$(".form_u-"+llave).find(".recurso").val(),
                   id_materia=$('.info_materia .clave').attr('id'),
                   idunidad = ($(btn).parents('.forms__').attr('id')).substr(($(btn).parents('.forms__').attr('id')).indexOf('-')+1);
-                  console.log(id_materia);
               if (nombre=="" | fecha_real=="" | fecha_programada =="" | actividad =="" | recurso =="") {
                    alert("Datos incompletos");
               }else{
@@ -277,8 +296,8 @@ function remove_unidad(cual){
                        	   	console.log(respuesta);
                                if (respuesta==1) {
                                	   alert("Se guardo correstamente");
-                               	   //remove_unidad(llave);
-                               	   //add_row_unidad(nombre,Fecha_programada,fecha_real,actividad,recurso);
+                               	   remove_unidad(llave);
+                               	   add_row_subtema(idunidad,nombre,fecha_programada,fecha_real,actividad,recurso);
                                }else{
                                	   alert("error");
                                }

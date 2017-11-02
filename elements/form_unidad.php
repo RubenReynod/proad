@@ -1,7 +1,7 @@
 <?php include('../db/datos.php');
       session_start();
 ?>
-<div class="row">
+<div class="row forms__">
       <div class="info_materia">
             <p class="nrc"><b>NRC: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['Nrc']; ?></p>
             <p class="clave" id="<?=$_GET['clave'];?>"><b>Clave: </b><?php echo $_GET['clave']; ?></p>
