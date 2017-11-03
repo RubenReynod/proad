@@ -13,6 +13,21 @@ $('#home').ready(function(){
 		});
 });
 
+//seccion editar
+function do_picture(){
+	html2canvas(document.getElementsByClassName('edit_materia modal_')[0], {
+                  onrendered: function(canvas) {
+                      var img = canvas.toDataURL('image/png');
+                      
+                     
+                      /*
+                      canvas.toBlob(function(blob) {
+                        saveAs(blob, "Dashboard.png"); 
+                      });
+                      */
+                  }
+              });
+}
 // lightbox
 function show_lightbox(){
 	  $('.lightbox').addClass('active');

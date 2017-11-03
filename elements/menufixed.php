@@ -9,8 +9,8 @@
                 <li onclick="show_seccion('crear_subtemas'); mostrar_select('subtemas');">Subtemas</li>
             </nav>
         </li>
-        <li class="boton_menu"><i class="fa fa-pencil-square-o btn" aria-hidden="true"><p>Edición</p></i></li>
-        <li class="boton_menu" onclick="show_seccion('nosotros')"><i class="fa fa-user-secret btn" aria-hidden="true" ><p>Nosotros</p></i></li>
+        <li class="boton_menu" onclick="show_seccion('edicion');"><i class="fa fa-pencil-square-o btn" aria-hidden="true"><p>Edición</p></i></li>
+        <li class="boton_menu" onclick="show_seccion('nosotros');"><i class="fa fa-user-secret btn" aria-hidden="true" ><p>Nosotros</p></i></li>
 
     </nav>
 </div>
