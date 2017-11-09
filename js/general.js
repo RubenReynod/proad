@@ -14,17 +14,13 @@ $('#home').ready(function(){
 });
 
 //seccion editar
-function do_picture(){
+function do_picture(cual){
 	html2canvas(document.getElementsByClassName('edit_materia modal_')[0], {
                   onrendered: function(canvas) {
                       var img = canvas.toDataURL('image/png');
-                      
-                     
-                      /*
-                      canvas.toBlob(function(blob) {
-                        saveAs(blob, "Dashboard.png"); 
-                      });
-                      */
+                          img = '<img src="'+img+'">';
+                          
+                      $('#edicion .menu_tables .btn_'+cual).html(img);    
                   }
               });
 }
@@ -92,7 +88,7 @@ function show_seccion(cual){
 		$('#'+cual).addClass('active');
 }
 // login
-$('#form-login').submit(function(){
+$('#form-login').submit(function(evt){
     var user=$(this).find('.user').val();
 		var password=$(this).find('.password').val();
 	  $.ajax({

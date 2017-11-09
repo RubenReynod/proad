@@ -8,12 +8,11 @@
 	<meta name="googlebot" content="index,follow">
 	<meta name="category" content="">
 	<title>ProAdvance</title>
-  <link rel="stylesheet" href="<?php echo $_SESSION['vista']=='home'?'css/main.css':'../css/main.css';?>">
+    <link rel="stylesheet" href="<?php echo $_SESSION['vista']=='home'?'css/main.css':'../css/main.css';?>">
 	<script src="https://use.fontawesome.com/914846b21d.js"></script>
 	<script src="<?php echo $_SESSION['vista']=='home'?'js/jquery.min.js':'../js/jquery.min.js'; ?>"></script>
 <script src="<?php echo $_SESSION['vista']=='home'?'js/plugins.js':'../js/plugins.js'; ?>"></script>
 <script src="<?php echo $_SESSION['vista']=='home'?'js/bootstrap.min.js':'../js/bootstrap.min.js'; ?>"></script>
-<script src="<?php echo $_SESSION['vista']=='home'?'js/general.js':'../js/general.js'; ?>"></script>
 <script src="<?php echo $_SESSION['vista']=='home'?'js/canvas.js':'../js/canvas.js'; ?>"></script>
 </head>
 <header id="header">
