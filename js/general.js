@@ -14,7 +14,7 @@ $('#home').ready(function(){
 });
 
 //seccion editar
-function do_picture(cual){
+/*function do_picture(cual){
 	html2canvas(document.getElementsByClassName('edit_materia modal_')[0], {
                   onrendered: function(canvas) {
                       var img = canvas.toDataURL('image/png');
@@ -23,7 +23,7 @@ function do_picture(cual){
                       $('#edicion .menu_tables .btn_'+cual).html(img);    
                   }
               });
-}
+}*/
 // lightbox
 function show_lightbox(){
 	  $('.lightbox').addClass('active');
