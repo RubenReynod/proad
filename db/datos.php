@@ -68,7 +68,7 @@
               }
             }
 
-            private function addNewSubtema($fila){
+            public function addNewSubtema($fila){
               //Subtema
               if (isset($fila['IdSubtema'])) {
                 $this->avances[$fila['IdMateria']]['Unidades'][$fila['IdUnidad']]['Subtemas'][$fila['IdSubtema']] = array(

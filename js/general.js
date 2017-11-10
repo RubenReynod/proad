@@ -13,6 +13,17 @@ $('#home').ready(function(){
 		});
 });
 
+//seccion editar
+/*function do_picture(cual){
+	html2canvas(document.getElementsByClassName('edit_materia modal_')[0], {
+                  onrendered: function(canvas) {
+                      var img = canvas.toDataURL('image/png');
+                          img = '<img src="'+img+'">';
+                          
+                      $('#edicion .menu_tables .btn_'+cual).html(img);    
+                  }
+              });
+}*/
 // lightbox
 function show_lightbox(){
 	  $('.lightbox').addClass('active');
@@ -77,7 +88,7 @@ function show_seccion(cual){
 		$('#'+cual).addClass('active');
 }
 // login
-$('#form-login').submit(function(){
+$('#form-login').submit(function(evt){
     var user=$(this).find('.user').val();
 		var password=$(this).find('.password').val();
 	  $.ajax({
@@ -175,23 +186,24 @@ function add_form(tipo,id = ''){
                            '<input class="Fecha_programada" type="date" name="" value="" required>'+
                       '</form>';
 		}else if (tipo=='subtema') {
-			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_unidad.php" method="post">'+
+			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_subtema.php" method="post">'+
 												'<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
 												'<input class="Fecha_real" type="date" name="" value="" required>'+
 												'<input class="Fecha_programada" type="date" name="" value="" required>'+
+												'<input class="actividad" type="text" name="" value="" placeholder="Actividad" required>'+
+												'<input class="recurso" type="text" name="" value="" placeholder="Recurso" required>'+
 									 '</form>';
 		}
-		lista.set(cont_+"",nombre);
+		lista.set(cont_+"",$('#tab_'+tipo+id).parents('.forms__').attr('id'));
 		cont_ = cont_+1;
 		close_lightbox();
 		$('.lightbox .campo').val('');
 		$('#tab_'+tipo+id).append(tab);
-		$('#formularios').append(formulario);
-
+		$('#tab_'+tipo+id).parents('.forms__').find('.formularios').append(formulario);
 }
 function add_row_unidad(nombre,Fp,Fr){
 	  var cont = $('#crear_unidades .table_ .row_table').length;
-	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'clear')+'">'+
+	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
 				         '<div class="nombre col-xs-4 nopadding">'+
 							       '<p>'+nombre+'</p>'+
 				         '</div>'+
@@ -203,6 +215,27 @@ function add_row_unidad(nombre,Fp,Fr){
 				         '</div>'+
 		         '</div>';
 		$('#crear_unidades .table_').append(row);
+}
+function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
+	  var cont = $('#form-'+table+' .table_ .row_table').length;
+	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
+				         '<div class="nombre col-xs-2 nopadding">'+
+							       '<p>'+nombre+'</p>'+
+				         '</div>'+
+				         '<div class="fecha_pro col-xs-2 nopadding">'+
+							       '<p>'+Fp+'</p>'+
+				         '</div>'+
+				         '<div class="fecha_real col-xs-2 nopadding">'+
+							       '<p>'+Fr+'</p>'+
+				         '</div>'+
+				         '<div class="actividad col-xs-3 nopadding">'+
+							       '<p>'+actividad+'</p>'+
+				         '</div>'+
+				         '<div class="recurso col-xs-3 nopadding">'+
+							       '<p>'+recurso+'</p>'+
+				         '</div>'+
+		         '</div>';
+		$('#form-'+table+' .table_').append(row);
 }
 function show_form_unidad(cual){
 	  $('.form_unidad').slideUp('slow');
@@ -224,7 +257,7 @@ function remove_unidad(cual){
 		var nombre=$(".form_u-"+llave).find(".nombre").val(),
 		Fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
 		Fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
-		id_materia=$('.info_materia .clave').attr('id');;
+		id_materia=$('.info_materia .clave').attr('id');
 		if (nombre=="" | Fecha_real=="" | Fecha_programada =="") {
          alert("Datos incompletos");
 	  }else{
@@ -248,6 +281,44 @@ function remove_unidad(cual){
       $(".form_u-"+llave).submit();
 	 }
  	});
+ }
+
+ function guardar_subtema(btn){
+     var unidad = $(btn).parents('.forms__').attr('id');
+     lista.forEach(function(valor,llave){
+         if(valor==unidad){
+              var nombre=$(".form_u-"+llave).find(".nombre").val(),
+                  fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
+                  fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
+                  actividad=$(".form_u-"+llave).find(".actividad").val(),
+                  recurso=$(".form_u-"+llave).find(".recurso").val(),
+                  id_materia=$('.info_materia .clave').attr('id'),
+                  idunidad = ($(btn).parents('.forms__').attr('id')).substr(($(btn).parents('.forms__').attr('id')).indexOf('-')+1);
+              if (nombre=="" | fecha_real=="" | fecha_programada =="" | actividad =="" | recurso =="") {
+                   alert("Datos incompletos");
+              }else{
+                   $(".form_u-"+llave).submit(function(evento){
+                       evento.preventDefault();
+                       $.ajax({
+                       	   type:'post',
+                       	   data:{id_materia:id_materia,nombre:nombre,fecha_real:fecha_real,fecha_programada:fecha_programada,actividad:actividad,recurso:recurso,unidad:idunidad},
+                       	   url: $(this).attr('action'),
+                       	   success: function(respuesta){
+                       	   	console.log(respuesta);
+                               if (respuesta==1) {
+                               	   alert("Se guardo correstamente");
+                               	   remove_unidad(llave);
+                               	   add_row_subtema(idunidad,nombre,fecha_programada,fecha_real,actividad,recurso);
+                               }else{
+                               	   alert("error");
+                               }
+                       	   }
+                       });
+                   });
+                   $(".form_u-"+llave).submit();
+              }
+         }
+     });
  }
 
  // tablas Subtemas

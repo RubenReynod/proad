@@ -1,7 +1,7 @@
 <?php include('../db/datos.php');
       session_start();
 ?>
-<div class="row">
+<div class="row forms__">
       <div class="info_materia">
             <p class="nrc"><b>NRC: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['Nrc']; ?></p>
             <p class="clave" id="<?=$_GET['clave'];?>"><b>Clave: </b><?php echo $_GET['clave']; ?></p>
@@ -15,7 +15,7 @@
       <div class="col-xs-3">
               <button class="btn_form btn_agregar" onclick="show_lightbox('lightbox-add','unidad');"><i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar unidad</button>
       </div>
-      <div class="col-sm-7" id="formularios">
+      <div class="col-sm-7 formularios">
 
       </div>
       <div class="col-sm-5 table_">

@@ -1,5 +1,5 @@
 .usuario{
-   height: 100vh;
+   min-height: 100vh;
    background: @color--azul2;
    h3{
        .TwCenMt;
@@ -96,6 +96,7 @@
 
        .table_{
            box-shadow: 0 1px 3px black;
+           overflow: hidden;
            .table_title{
                background: @color--rojo;
            }
@@ -107,6 +108,16 @@
                    background: #fff;
                }
            }
+
+       }
+       .content{
+            max-height: 400px;
+            overflow: scroll;
+            margin: 0 -15px 0 -15px;
+            overflow-x: hidden;
+            .row_table{
+                padding: 0 0 0 15px;
+            }
        }
 
        input[type="text"],input[type="number"],input[type="date"]{
@@ -317,6 +328,39 @@
                  display: block;
              }
          }
+       }
+       &#edicion{
+           text-align: center;
+           .acciones{
+               &[status="inactive"]{
+                   display:none;
+               }
+           }
+           .menu_tables{
+               .btn_table{
+                    button{
+                        width: 100%;
+                        margin: 15px 0;
+                        height: 40px;
+                        border: none;
+                        color: white;
+                        background: @color--rojo;
+                        position: relative;
+                        /*&:after{
+                        content= "";
+                        border=20px solid @color--rojo;
+                        border-button: 20px solid transparent;
+                        border-top: 20px solid transparent;
+                        border-left: 20px solid transparent;
+                        position: absolute;
+                        top: 0;
+                        left: -40px;
+                    }*/
+                    }
+                    
+                    
+               }
+           }
        }
    }
 }

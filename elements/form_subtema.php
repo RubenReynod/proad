@@ -27,7 +27,7 @@
                    </div>
             </div>
             <div class="row">
-                <div class="col-sm-5" id="formularios">
+                <div class="col-sm-5 formularios">
 
                 </div>
                 <div class="col-sm-7 table_">
@@ -53,28 +53,29 @@
                              <p>Recursos</p>
                          </div>
                      </div>
-                     <?php $cont=2;
+                     <?php $cont=1;
                      foreach ($value['Subtemas'] as $key2 => $value2) : ?>
-                         <div class="row row_table <?=(($cont%2)==0?'clear':'dark')?>">
+                         <div class="row row_table <?=(($cont%2)==0?'dark':'clear')?>">
                               <div class="col-xs-2 nopadding">
-                                  <p>Subtema</p>
+                                  <p><?=$value2['NombreSubtema'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
-                                  <p>Programada</p>
+                                  <p><?=$value2['SEvaluacionP'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
-                                  <p>Real</p>
+                                  <p><?=$value2['SEvaluacionR'];?></p>
                               </div>
                               <div class="col-xs-3 nopadding">
-                                  <p>Actividad</p>
+                                  <p><?=$value2['Actividad'];?></p>
                               </div>
                               <div class="col-xs-3 nopadding">
-                                  <p>Recursos</p>
+                                  <p><?=$value2['Recurso'];?></p>
                               </div>
                          </div>
-                     <?php endforeach; ?>
+                     <?php $cont=$cont+1; endforeach; ?>
                 </div>
             </div>
+            <button type="button" class ="btn_form" onclick="guardar_subtema(this);">Guardar</button>
       </div>
       <?php endforeach; ?>
 </div>

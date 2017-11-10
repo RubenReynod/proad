@@ -63,10 +63,12 @@
               <!-- select materia -->
               <!-- select materia -->
             </div>
-            <div class="col-sm-10 col-sm-offset-1" id="edicion">
-
+            <div class="col-sm-10 col-sm-offset-1 secciones" id="edicion">
+              <!-- acciones de edición -->
+              <?php echo include('../elements/seccion_edicion.php'); ?>
+              <!-- acciones de edición -->
             </div>
-            <div class="col-sm-12 secciones" id="nosotros">
+            <div class="col-sm-10 col-sm-offset-1 secciones" id="nosotros">
        <div class="row">
          <div class="col-sm-4 ">
            <div class="recuadro  subir">
