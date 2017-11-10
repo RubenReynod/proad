@@ -92,17 +92,17 @@
 	    </div>
 	    <div class="col-sm-3 menu_tables">
 	    	<div class="row">
-	    		<div class="col-xs-12 btn_materia" status="active">
+	    		<div class="col-xs-12 btn_materia btn_table" status="active">
 	    			<button>Materias</button>
 	    		</div>
 	    	</div>
             <div class="row">
-	    		<div class="col-xs-12 btn_unidad" status="inactive">
+	    		<div class="col-xs-12 btn_unidad btn_table" status="inactive">
 	    			<button>Unidades</button>
 	    		</div>
 	    	</div>
 	    	<div class="row">
-	    		<div class="col-xs-12 btn_subtema" status="inactive">
+	    		<div class="col-xs-12 btn_subtema btn_table" status="inactive">
 	    			<button>Subtemas</button>
 	    		</div>
 	    	</div>
