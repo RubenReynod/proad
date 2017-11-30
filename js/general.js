@@ -13,17 +13,6 @@ $('#home').ready(function(){
 		});
 });
 
-//seccion editar
-/*function do_picture(cual){
-	html2canvas(document.getElementsByClassName('edit_materia modal_')[0], {
-                  onrendered: function(canvas) {
-                      var img = canvas.toDataURL('image/png');
-                          img = '<img src="'+img+'">';
-                          
-                      $('#edicion .menu_tables .btn_'+cual).html(img);    
-                  }
-              });
-}*/
 // lightbox
 function show_lightbox(){
 	  $('.lightbox').addClass('active');
@@ -332,3 +321,37 @@ function show_forms(btn){
 				$('#form-'+id).attr('status','active');
 	  }
 }
+
+// botones mostrar llas tablas en edicion
+
+$('.btn_agregar').click(function(){
+	$('.btn_agregar').attr('status','inactive');
+	$(this).attr('status','active');
+	console.log($(this).attr('type'));
+	$('.acciones').attr('status','inactive');
+	$('.edit_'+$(this).attr('type')).attr('status','active');
+});
+//boton eliminar materia
+$
+$('.b_basura').click(function(){
+ var fila=$(this).parents('.row_table').attr("clave");
+ $.ajax({
+ 	type: 'post',
+ 	url:"../db/eliminar.php",
+ 	data: {tabla:'materias',id:fila},
+ 	dataType:"json",
+ 	success:function(recibe){
+       if (recibe.respuesta) {
+       	   alert('Se elimino correctamentee');
+       	   $('.row_table[clave="'+fila+'"]').slideUp();
+       	   $('.row_table[clave="'+fila+'"]').queue(function(){
+       	   	   $(this).remove();
+       	   	   $(this).dequeue();
+       	   });
+       }else{
+           alert('No se pudo eliminar');
+       } 
+ 	}
+
+ });
+});
