@@ -332,7 +332,6 @@ $('.btn_agregar').click(function(){
 	$('.edit_'+$(this).attr('type')).attr('status','active');
 });
 //boton eliminar materia
-$
 $('.b_basura').click(function(){
  var fila=$(this).parents('.row_table').attr("clave");
  $.ajax({
@@ -346,12 +345,43 @@ $('.b_basura').click(function(){
        	   $('.row_table[clave="'+fila+'"]').slideUp();
        	   $('.row_table[clave="'+fila+'"]').queue(function(){
        	   	   $(this).remove();
+       	   	   $('.edit_materias .row_table ').each(function(index){
+       	   	        var color = ((index+1)%2) == 0?'dark':'clear';
+                    if (!$(this).hasClass(color)) {
+                        $(this).removeClass('dark clear').addClass(color);
+                    }
+       	       });
        	   	   $(this).dequeue();
        	   });
+
        }else{
            alert('No se pudo eliminar');
        } 
  	}
 
  });
+});
+// boton mostrar unidad o subtema
+$('.b_ver').click(function(){
+	var clave = $(this).parents('.row_table ').attr('clave');
+    var tabla = $(this).parents('[table]').attr('table');
+    if (tabla=='materias') {
+    	$('.edit_unidades .content .row_table[father]').hide();
+    	if ($('.edit_unidades .content .row_table[father="'+clave+'"]').length > 0) {
+    		$('.edit_unidades .content .row_table[father="'+clave+'"]').show().queue(function(){
+    		    $('.acciones').attr('status','inactive');
+    		    $('.acciones.edit_unidades').attr('status','active');
+    		    $(this).dequeue();
+    	    });
+    	}
+    }else if (tabla=='unidades') {
+    	$('.edit_subtemas .content .row_table[father]').hide();
+    	if ($('.edit_subtemas .content .row_table[father="'+clave+'"]').length > 0) {
+    		$('.edit_subtemas .content .row_table[father="'+clave+'"]').show().queue(function(){
+    		    $('.acciones').attr('status','inactive');
+    		    $('.acciones.edit_subtemas').attr('status','active');
+    		    $(this).dequeue();
+    	    });
+    	}
+    }
 });

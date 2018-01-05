@@ -1,6 +1,6 @@
 	<div class="tables">
 		<div class="col-xs-9">
-		<div class="edit_materias modal_ acciones" status="active">
+		<div class="edit_materias modal_ acciones" status="active" table="materias">
 			<div class="row">
 				<div class="col-xs-12 table_">
 					<div class="row table_title">
@@ -53,7 +53,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="edit_unidades modal_ acciones" status="inactive" modal-is="empty">
+		<div class="edit_unidades modal_ acciones" status="inactive" modal-is="empty" table="unidades">
 			<div class="row">
 				<div class="col-xs-12 table_">
 					<div class="row table_title">
@@ -74,7 +74,7 @@
                     	<?php $cont=1;
                     	      foreach ($_SESSION['profesor']->avances as $key => $value) :	
                     	      	   foreach($value['Unidades'] as $key2 => $value2) : ?>
-                    	      	        <div class="row row_table <?=($cont%2)==0?'dark':'clear';?>">
+                    	      	        <div class="row row_table <?=($cont%2)==0?'dark':'clear';?>" father="<?=$key;?>" clave="<?=$key2;?>">
                                              <div class="col-xs-4 nopadding">
                                        	         <p><?=$value2['NombreUnidad'];?></p>
                                              </div>
@@ -85,7 +85,9 @@
                                        	         <p><?=$value2['UEvaluacionR'];?></p>
                                              </div>
                                              <div class="col-xs-2 nopadding">
-                                       	
+                                       	        <button class="b_basura"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						                        <button class="b_editar"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+						                        <button class="b_ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                              </div>
                                         </div>     
                     	<?php       $cont=$cont+1;
@@ -95,7 +97,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="edit_subtemas modal_ acciones" status="inactive" modal-is="empty">
+		<div class="edit_subtemas modal_ acciones" status="inactive" modal-is="empty" table="subtemas">
 			<div class="row">
 				<div class="col-xs-12 table_">
 					<div class="row table_title">
@@ -123,7 +125,7 @@
 						       foreach ($_SESSION['profesor']->avances as $key => $value) : 
 						       	    foreach($value['Unidades'] as $key2 => $value2) : 
 						       	    	foreach($value2['Subtemas'] as $key3 => $value3) :?>
-						       	    	    <div class="row row_table <?=($cont%2)==0?'dark':'clear';?>">
+						       	    	    <div class="row row_table <?=($cont%2)==0?'dark':'clear';?>" father="<?=$key2;?>">
 						       	    	    	<div class="col-xs-2 nopadding">
                                                     <p><?=$value3['NombreSubtema'];?></p>
                                                 </div>
@@ -140,7 +142,9 @@
                                                     <p><?=$value3['Recurso'];?></p>
                                                 </div>
                                                 <div class="col-xs-2 nopadding">
-                        	
+                        	                        <button class="b_basura"><i class="fa fa-trash" aria-hidden="true"></i></button>
+						                            <button class="b_editar"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+						                            <button class="b_ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                                 </div>
 						       	    	    </div>	
 						 <?php          $cont=$cont+1;

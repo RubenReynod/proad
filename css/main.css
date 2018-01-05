@@ -8210,4 +8210,7 @@ button.close {
                         left: -40px;
                     }*/
 }
+.usuario .secciones#edicion .row_table[father] {
+  display: none;
+}
 /* Responsive*/
