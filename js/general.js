@@ -11,6 +11,9 @@ $('#home').ready(function(){
       cssEase: 'linear'
 
 		});
+	$('.btn_registrar').on('click',function(){
+		$('.lightbox').addClass('active');
+	});	
 });
 
 // lightbox
@@ -35,10 +38,10 @@ function close_lightbox(){
 }
 // logout
 function inicio(){
-	window.location = '/proadavance/';
+	window.location = '/proad/';
 }
 function perfil(){
-   window.location = '/proadavance/usuario';
+   window.location = '/proad/usuario';
 }
 function cerrar_session(vista){
    window.location = vista;
@@ -72,74 +75,69 @@ function submenu(){
 }
 //menu fixed
 function show_seccion(cual){
-	   $('.subir').css({'animation':'subir 3s ease'});
+	  $('.subir').css({'animation':'subir 3s ease'});
 	  $('.secciones').removeClass('active');
-		$('#'+cual).addClass('active');
+	  $('#'+cual).addClass('active');
 }
 // login
 $('#form-login').submit(function(evt){
-    var user=$(this).find('.user').val();
-		var password=$(this).find('.password').val();
-	  $.ajax({
+      evt.preventDefault();
+      var datos = $(this).serialize();
+        $.ajax({
 			 type: 'POST',
 			 url: $(this).attr('action'),
-			 data: {user:user,password:password},
+			 data: datos,
+			 dataType: 'json',
        success: function(resp){
-				 if (resp==true) {
+				 if (resp.status) {
              window.location = "usuario";
 				 }else{
 					   alert("El usuario o la contraseña son incorrectos");
 				 }
        }
 		});
-		return false;
+
 });
 // registro
-$('#form-registro').submit(function(){
-	 var nombre = $(this).find('.nombre').val();
-	 var apellidoP = $(this).find('.apellidoP').val();
-	 var apellidoM = $(this).find('.apellidoM').val();
-	 var codigo = $(this).find('.codigo').val();
-	 var contraseña = $(this).find('.contraseña').val();
-	 var contraseña2 = $(this).find('.contraseña2').val();
-	 var sexo = $(this).find('.sexo').val();
-	 $.ajax({
-		 type: 'POST',
-		 url: $(this).attr('action'),
-		 data: {nombre:nombre,apellidoP:apellidoP,apellidoM:apellidoM,codigo:codigo,contraseña:contraseña,contraseña2:contraseña2,sexo:sexo},
-		 success: function(resp){
-         if (resp==2) {
-         	   alert("Las contraseñas no coinciden");
-         }else if (resp==1) {
-             window.location = "usuario";
-         }else{
-					   alert("El usuario ya existe");
-				 }
-		 }
-	 });
-	 return false;
+$('#form-registro').on('submit',function(evt){
+	evt.preventDefault();
+     var datos = $(this).serialize();
+     if ($('contraseña',this).val()==$('contraseña2',this).val()) {
+	    $.ajax({
+		    type: 'POST',
+		    url: $(this).attr('action'),
+		    data: datos,
+		    dataType: 'json',
+		    success: function(resp){
+                if (resp.status) {
+         	        alert("Registro exitoso");
+                }else{
+                    alert("El registro ya existe");
+		        }
+		    }
+	    });
+	 }else{
+	 	console.log("Las contraseñas no coinciden");
+	 }
 });
 // registro Materias_idMaterias
-$('#form_materia').submit(function(){
-	var clave = $(this).find('.clave').val();
-	var nrc = $(this).find('.nrc').val();
-	var nombre = $(this).find('.nombre').val();
-	var creditos = $(this).find('.creditos').val();
-	var edificio = $(this).find('.edificio').val();
-	var carrera = $(this).find('.carrera').val();
-	var departamento = $(this).find('.departamento').val();
+$('.form_registro').on('submit',function(evt){
+	evt.preventDefault();
+	var that = this;
+	var datos = $(this).serialize();
 	$.ajax({
 		  type: 'POST',
 			url: $(this).attr('action'),
-			data:{clave:clave,nrc:nrc,nombre:nombre,creditos:creditos,edificio:edificio,carrera:carrera,departamento:departamento},
+			data: datos,
+			dataType: 'json',
 			success: function (resp){
-           if (resp == 1) {
-           	    alert('Si se pudo');
-								$('#crear_unidades').load('../elements/form_unidad.php?'+$.param({clave:clave}));
-								show_seccion('crear_unidades');
-           }else{
-						    alert('Algo fallo :(');
-					 }
+                if (resp.status) {
+           	        alert('Si se pudo');
+           	        $('#crear_unidades').load('../elements/form_unidad.php?'+$.param({clave:$('.clave',that).val()}));
+				    show_seccion('crear_unidades');	    
+                }else{
+					alert('Algo fallo :(');
+				}
 			}
 	});
 	return false;
@@ -169,18 +167,18 @@ function add_form(tipo,id = ''){
 	     tab = '<li class="tab tab-'+cont_+'"><b onclick="show_form_unidad('+cont_+');">'+nombre+'</b><i class="fa fa-times" aria-hidden="true" onclick="remove_unidad('+cont_+');"></i></li>';
 			 formulario = '';
 	 if (tipo=='unidad') {
-				 formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_unidad.php" method="post">'+
-                           '<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
-                           '<input class="Fecha_real" type="date" name="" value="" required>'+
-                           '<input class="Fecha_programada" type="date" name="" value="" required>'+
+				 formulario = '<form class="form_unidad" action="../db/guardar_unidad.php" method="post" tab="'+cont_+'">'+
+                           '<input class="nombre" name="datos[nombre]" type="text" name="" value="" placeholder="Nombre" required>'+
+                           '<input class="Fecha_real" name="datos[fecha_real]" type="date" name="" value="" required>'+
+                           '<input class="Fecha_programada" name="datos[fecha_programada]" type="date" name="" value="" required>'+
                       '</form>';
 		}else if (tipo=='subtema') {
 			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_subtema.php" method="post">'+
-												'<input class="nombre" type="text" name="" value="" placeholder="Nombre" required>'+
-												'<input class="Fecha_real" type="date" name="" value="" required>'+
-												'<input class="Fecha_programada" type="date" name="" value="" required>'+
-												'<input class="actividad" type="text" name="" value="" placeholder="Actividad" required>'+
-												'<input class="recurso" type="text" name="" value="" placeholder="Recurso" required>'+
+												'<input class="nombre" type="text" name="datos[nombre]" value="" placeholder="Nombre" required>'+
+												'<input class="Fecha_real" type="date" name="datos[fecha_real]" value="" required>'+
+												'<input class="Fecha_programada" type="date" name="datos[fecha_programada]" value="" required>'+
+												'<input class="actividad" type="text" name="datos[actividad]" value="" placeholder="Actividad" required>'+
+												'<input class="recurso" type="text" name="datos[recurso]" value="" placeholder="Recurso" required>'+
 									 '</form>';
 		}
 		lista.set(cont_+"",$('#tab_'+tipo+id).parents('.forms__').attr('id'));
@@ -190,20 +188,21 @@ function add_form(tipo,id = ''){
 		$('#tab_'+tipo+id).append(tab);
 		$('#tab_'+tipo+id).parents('.forms__').find('.formularios').append(formulario);
 }
-function add_row_unidad(nombre,Fp,Fr){
+function add_row_unidad(datos){
 	  var cont = $('#crear_unidades .table_ .row_table').length;
-	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
-				         '<div class="nombre col-xs-4 nopadding">'+
-							       '<p>'+nombre+'</p>'+
-				         '</div>'+
-				         '<div class="fecha_pro col-xs-4 nopadding">'+
-							       '<p>'+Fp+'</p>'+
-				         '</div>'+
-				         '<div class="fecha_real col-xs-4 nopadding">'+
-							       '<p>'+Fr+'</p>'+
-				         '</div>'+
-		         '</div>';
-		$('#crear_unidades .table_').append(row);
+	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'" style="display:none;">';
+          datos.forEach(function(value,key){
+          	    if (value.name != 'datos[id]') {
+                    row = row+'<div class="col-xs-4 nopadding '+value.value+'">'+
+                                  '<p>'+value.value+'</p>'+
+                              '</div>';    
+                }
+          });
+		   row = row+'</div>';
+		$('#crear_unidades .table_').append(row).queue(function(){
+			$('.row_table:last-child',this).slideDown('slow');
+			$(this).dequeue();
+		});
 }
 function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
 	  var cont = $('#form-'+table+' .table_ .row_table').length;
@@ -228,47 +227,55 @@ function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
 }
 function show_form_unidad(cual){
 	  $('.form_unidad').slideUp('slow');
-		$('.form_u-'+cual).slideDown('slow');
+		$('.form_unidad[tab="'+cual+'"]').slideDown('slow');
 		$('.tab').removeClass('active');
 		$('.tab-'+cual).addClass('active');
 }
 
 function remove_unidad(cual){
+	console.log(cual);
 	  $('.tab-'+cual).remove();
-		$('.form_u-'+cual).remove();
-		lista.delete(cual);
+	  $('.form_unidad[tab="'+cual+'"').remove();
+	  lista.delete(cual);
 }
+ 
+ $('.secciones').on('submit','.form_unidad',function(evt){
+        evt.preventDefault();
+        var that = this;
+        var datos = $(this).serializeArray();
+            datos.push({'name':'datos[id]','value':$('.info_materia .clave').attr('id')});
 
+        $.ajax({
+        	type: 'post',
+        	data: datos,
+        	url: $(this).attr('action'),
+        	dataType: 'json',
+        	success: function(resp){
+                if (resp.status) {
+                	alert("Se guardo exitosamente");
+                	remove_unidad($(that).attr('tab'));
+                	add_row_unidad(datos);
+                }else{
+                	alert("Fallo al guardar");
+                }
+        	}
+        });    
 
+ });
 
  function guardar_unidad(){
- 	lista.forEach(function(valor, llave){
-		var nombre=$(".form_u-"+llave).find(".nombre").val(),
-		Fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
-		Fecha_programada=$(".form_u-"+llave).find(".Fecha_programada").val(),
-		id_materia=$('.info_materia .clave').attr('id');
-		if (nombre=="" | Fecha_real=="" | Fecha_programada =="") {
-         alert("Datos incompletos");
-	  }else{
-	    $(".form_u-"+llave).submit(function(evento){
-			   evento.preventDefault();
-			   $.ajax({
-				      type:'post',
-				      data:{clave:id_materia,nombre:nombre,Fecha_real:Fecha_real,Fecha_programada:Fecha_programada},
-				      url:$(this).attr("action"),
-				      success:function(respuesta){
-					      if (respuesta==1) {
-							      alert("LISTO GUARDADO");
-										remove_unidad(llave);
-                    add_row_unidad(nombre,Fecha_programada,Fecha_real);
-					      }else {
-							      alert("error");
-					      }
-				      }
-			    });
-		  });
-      $(".form_u-"+llave).submit();
-	 }
+ 	$('.form_unidad ').each(function(){
+ 		var bandera = true;
+ 		$(this).serializeArray().forEach(function(valor, llave){
+             if (valor.value == '') {
+             	bandera = false;
+             	return false;
+             }
+ 		});
+ 		if (bandera) {
+ 			$(this).submit();
+ 		}
+ 		
  	});
  }
 
@@ -384,4 +391,15 @@ $('.b_ver').click(function(){
     	    });
     	}
     }
+});
+
+// boton editar 
+$('.b_editar').click(function(){
+	
+	 $('.Nombre').html("<input class='edicionM' type='text' value='"+$('.Nombre').text()+"'/>");
+	 $('.Creditos').html("<input class='edicionM' type='number' value='"+$('.Creditos').text()+"'/>");
+	 $('.Edificio').html("<select class='edicionM'  value='"+$('.Edificio').text()+"'/>");
+	 $('.Departamento').html("<input class='edicionM' value='"+$('.Departamento').text()+"'/>");
+	 $('.Carrera').html("<input class='edicionM' value='"+$('.Carrera').text()+"'/>");
+	 
 });

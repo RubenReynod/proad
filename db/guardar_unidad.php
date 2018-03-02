@@ -3,9 +3,14 @@ include('../db/conexion.php');
 include('../db/datos.php');
 session_start();
 
-$consulta="insert into unidad(idMateria,Nombre,Evaluacion_programado,Evaluacion_real) values(".$_POST['clave'].",'".$_POST['nombre']."','".$_POST['Fecha_programada']."','".$_POST['Fecha_real']."')";
+$sql="insert into unidades(id_materia,Nombre,Evaluacion_programada,Evaluacion_real) values(".$_POST['datos']['id'].",'".$_POST['datos']['nombre']."','".$_POST['datos']['fecha_programada']."','".$_POST['datos']['fecha_real']."')";
 $id=conectar();
-if($id->query($consulta)){
+$id->query($sql);
+
+$status['status'] = empty($id)?false:true;
+echo json_encode($status);
+
+/*if($id->query($consulta)){
     $unidad=array(
          'IdMateria' => $_POST['clave'],
          'IdUnidad' => $id->insert_id,
@@ -17,7 +22,7 @@ if($id->query($consulta)){
     echo true;
 }else{
    echo false;
-}
+}*/
 
 
 ?>

@@ -23,25 +23,25 @@
         </div>
         <div class="col-md-6 col-md-offset-2 col-sm-7 login">
           <!--<div class="vertical-align">-->
-						<?php if (isset($_SESSION['login'])==false){ ?>
+						<?php if (empty($_SESSION['profesor'])){ ?>
 						<form id="form-login" action="db/validar-usuario.php" method="post">
 							<div class="col-md-8 col-sm-8">
 								<div class="campo-login">
 									<i class="fa fa-user" aria-hidden="true"></i>
-									<input class="user" type="text" name="user"  placeholder="Usuario" required>
+									<input class="user" type="text" name="datos[Usuario]"  placeholder="Usuario" required>
 								</div>
                 <div class="campo-login">
 									<i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                	<input class="password" type="password" name="password"  placeholder="Contraseña" required>
+                	<input class="password" type="password" name="datos[Contraseña]"  placeholder="Contraseña" required>
                 </div>
 
 							</div>
 							<div class="col-md-4 col-sm-4 btns_login">
 								<button type="submit" class="btn_entrar">Entrar</button>
-								<button type="button" class="btn_registrar" onclick="show_registro();">Registrar</button>
+								<button type="button" class="btn_registrar" onclick="show_lightbox();">Registrar</button>
 							</div>
 						</form>
-					<?php } elseif (isset($_SESSION['login'])==true){ ?>
+					<?php } elseif (!empty($_SESSION['profesor'])){ ?>
 						<div class="logout" onclick="menu_header();">
 							<div class="foto">
 								 <i class="fa fa-user-circle-o" aria-hidden="true"></i>

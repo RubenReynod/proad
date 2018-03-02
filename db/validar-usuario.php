@@ -4,47 +4,43 @@ include('conexion.php');
 include('datos.php');
 //Llave para desencriptar contraseña
 $_SESSION['AES']='f95EaM10';
-$_SESSION['user'] =$_POST['user'];
-$_SESSION['password']=$_POST['password'];
-$_SESSION['login'] = false;
 
+$consulta="select * from profesores where Codigo='".$_POST['datos']['Usuario']."' and AES_DECRYPT(password,'".$_SESSION['AES']."')='".$_POST['datos']['Contraseña']."'";
 
-$consulta="select * from profesores where idprofesor='".$_SESSION['user']."' and AES_DECRYPT(password,'".$_SESSION['AES']."')='".$_SESSION['password']."'";
 $ejecutar_consulta=conectar()->query($consulta);
+
 $fila=mysqli_fetch_array($ejecutar_consulta);
 
+$Status['status'] = !empty($fila['Codigo'])?true:false;
 // Verificamos si la consulta obtubo datos
-if(!empty($fila['idprofesor']) ){
-     $_SESSION['login'] = true;
-     //Datos del profesor
-     $_SESSION['profesor'] = new Usuario($fila['idprofesor'],$fila['Nombre'],$fila['ApellidoP'],$fila['ApellidoM'],$fila['Status'],$fila['sexo']);
-     // consulta de los avances programaticos
-$consultaGeneral="select profesores.idprofesor as Codigo,idNRC as nrc,
-       materias.idMaterias as IdMateria,materias.nombre as NombreMateria,materias.Creditos as Creditos,materias.Edificio as Edificio,materias.Carrera as Carrera,materias.Departamentos_idDepartamentos,
-       unidad.idUnidad as IdUnidad,unidad.Nombre as NombreUnidad,unidad.Evaluacion_programado as UEvaluacionP,unidad.Evaluacion_real as UEvaluacionR,
-       subtemas.idSubtemas as IdSubtema,subtemas.Nombre as NombreSubtema,subtemas.Fecha_pre as SEvaluacionP,Fecha_real as SEvaluacionR,subtemas.Actividad as Actividad,subtemas.Recurso as Recurso
-       from profesores left join nrc on nrc.Profesores_idProfesores = profesores.idprofesor
-       left join materias on nrc.Materias_idMaterias = materias.idMaterias
-       left join unidad on unidad.idMateria=materias.idMaterias
-       left join subtemas on subtemas.unidad=unidad.idUnidad where profesores.idprofesor='".$fila['idprofesor']."'";
+if($Status['status']){
 
-$_SESSION['profesor']->addAvances($consultaGeneral);
+$consulta_datos = "SELECT p.Codigo, p.Nombre as nombre_profesor,p.ApellidoM, p.ApellidoP, p.sexo,n.id as nrc, c.id as ciclo, m.*,u.id as id_unidad, u.Nombre as nombre_unidad, u.Evaluacion_programada, u.Evaluacion_real, d.nombre as nombre_departamento,ca.id as id_carrera,ca.nombre as nombre_carreras, ca.siglas, s.id as id_subtema, s.fecha_programada, s.fecha_real, s.Nombre as nombre_subtema, s.Actividad, s.Recurso from profesores p ".
+                                                       "left join nrc n on n.id_profesor=p.Codigo ".
+                                                       "left join avance_programatico ap on ap.id_nrc=n.id ".
+                                                       "left join ciclo c on c.id=ap.id_ciclo ".
+                                                       "left join materias m on m.id_avance=ap.id ".
+                                                       "left join departamentos d on m.id_departamento=d.id ".
+                                                       "left join carreras ca on m.id_carrera=ca.id ".
+                                                       "left join unidades u on u.id_materia=m.Clave ".
+                                                       "left join subtemas s on s.id_unidad=u.id ".
+                                                       "where p.Codigo=".$_POST['datos']['Usuario'];
 
-$consultaDep = 'SELECT * FROM departamentos';
+    $_SESSION['profesor'] = new Usuario($fila['Codigo'],$fila['Nombre'],$fila['ApellidoP'],$fila['ApellidoM'],$fila['sexo']);
 
-$ejecutar_consultaDep = conectar()->query($consultaDep);
+    $_SESSION['profesor']->addAvances($consulta_datos);       
 
-$_SESSION['departamentos'] = array();
-while ($fila=mysqli_fetch_array($ejecutar_consultaDep)) {
-    $_SESSION['departamentos'][$fila['idDepartamentos']] = $fila['nombre'];
+    // consulta de tabla carreras
+    $consulta  = "select * from carreras";
+    $ejecutar = conectar()->query($consulta);
+    $_SESSION['carreras'] = mysqli_fetch_all($ejecutar);
+
+    // consulta de tabla departamento
+    $consulta  = "select * from departamentos";
+    $ejecutar = conectar()->query($consulta);
+    $_SESSION['departamentos'] = mysqli_fetch_all($ejecutar);
 }
-//$Usuario->Avance($ejecutar_consulta2);
-}else{
-     $_SESSION['login'] = false;
-}
-
-
 
 // mandamos una respuesta al js
-echo $_SESSION['login'];
+echo json_encode($Status,JSON_FORCE_OBJECT);
 ?>

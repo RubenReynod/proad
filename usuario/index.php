@@ -1,6 +1,6 @@
 <?php include('../db/datos.php');
       session_start();?>
-<?php if (isset($_SESSION['login'])==true):?>
+<?php if (!empty($_SESSION['profesor'])):?>
 <html>
 <?php $_SESSION['vista']='usuario'; ?>
 <!-- header -->

@@ -14,13 +14,11 @@
 
 	<div id="home">
 		<h3>Lugar ideal para crear tu avace Programatico</h3>
-
 		<div class="container">
 			 <!-- slider -->
 			     <?php echo include('elements/slider.php'); ?>
 	 		 <!-- slider -->
 		</div>
-
 	</div>
 
 </body>

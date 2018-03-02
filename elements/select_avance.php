@@ -1,5 +1,8 @@
 <?php include('../db/datos.php');
+      include('../db/conexion.php');
       session_start();
+      include('../db/avances.php');
+      get_avances($_SESSION['profesor']->id);
 ?>
 <div class="row">
 
@@ -14,12 +17,12 @@
                    <option value="">NRC - Clave - Nombre</option>
                     <?php if ($_GET['btn']=='unidades') : ?>
                         <?php foreach ($_SESSION['profesor']->avances as $key => $value): ?>
-                            <option value="<?php echo $key; ?>"><b style="color:#000;"><?php echo $value['Nrc']." - ".$key." - ".$value['NombreMateria']; ?></b></option>
+                            <option value="<?php echo $key; ?>"><b style="color:#000;"><?php echo $value['nrc']." - ".$key." - ".$value['nombre']; ?></b></option>
                         <?php endforeach; ?>
                     <?php elseif ($_GET['btn']=='subtemas') : ?>
                         <?php foreach ($_SESSION['profesor']->avances as $key => $value): ?>
-                            <?php if (count($value['Unidades']) > 0) :  ?>
-                                 <option value="<?php echo $key; ?>"><b style="color:#000;"><?php echo $value['Nrc']." - ".$key." - ".$value['NombreMateria']; ?></b></option>
+                            <?php if (count($value['unidades']) > 0) :  ?>
+                                 <option value="<?php echo $key; ?>"><b style="color:#000;"><?php echo $value['nrc']." - ".$key." - ".$value['nombre']; ?></b></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php endif; ?>

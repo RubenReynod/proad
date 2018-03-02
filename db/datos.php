@@ -1,9 +1,8 @@
-
 <?php
 
      class Usuario{
 
-            public $idprofesor="";
+            public $id="";
             public $nombre="";
             public $apellidop="";
             public $apellidom="";
@@ -12,12 +11,11 @@
             public $avances=array();
 
 
-            public function __construct($idprofesor,$nombre,$apellidop,$apellidom,$status,$sexo){
-                 $this->idprofesor=$idprofesor;
+            public function __construct($id,$nombre,$apellidop,$apellidom,$sexo){
+                 $this->id=$id;
                  $this->nombre=$nombre;
                  $this->apellidop=$apellidop;
                  $this->apellidom=$apellidom;
-                 $this->status=$status;
                  $this->sexo=$sexo;
             }
 
@@ -25,18 +23,18 @@
             function addAvances($consulta){
 
                   $ejecutar_consulta=conectar()->query($consulta);
-
+                  
                   while($fila=mysqli_fetch_array($ejecutar_consulta)){
                        //Verificamos si existe la materia en el arreglo
-                       if (!(isset($this->avances[$fila['IdMateria']]))) {
+                       if (!(isset($this->avances[$fila['Clave']]))) {
                            $this->addNewMateria($fila);
                        }
                        //Verificamos si existe la unidad en el arreglo
-                       elseif (!isset($this->avances[$fila['IdMateria']]['Unidades'][$fila['IdUnidad']])) {
+                       elseif (!isset($this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']])) {
                            $this->addNewUnidad($fila);
                        }
                        //Verificamos si existe el subtema en el arreglo
-                       elseif (!(isset($this->avances[$fila['IdMateria']]['Unidades'][$fila['IdUnidad']]['Subtemas'][$fila['IdSubtema']]))) {
+                       elseif (!(isset($this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']]['Subtemas'][$fila['id_subtema']]))) {
                            $this->addNewSubtema($fila);
                        }
                   }
@@ -44,24 +42,32 @@
 
             public function addNewMateria($fila){
               // Materia
-                $this->avances[$fila['IdMateria']] = array(
-                                  'Nrc' => $fila['nrc'],
-                                  'NombreMateria' => $fila['NombreMateria'],
-                                  'Creditos' => $fila['Creditos'],
-                                  'Edificio' => $fila['Edificio'],
-                                  'Departamentos' => $fila['Departamentos_idDepartamentos'],
-                                  'Carrera' => $fila['Carrera'],
-                                  'Unidades' => array());
+                $this->avances[$fila['Clave']] = array(
+                                  'nrc' => $fila['nrc'],
+                                  'nombre' => $fila['Nombre'],
+                                  'creditos' => $fila['Creditos'],
+                                  'edificio' => $fila['Edificio'],
+                                  'departamento' => array(
+                                                       'id' => $fila['id_departamento'],
+                                                       'nombre' => $fila['nombre_departamento']
+                                                    ),
+                                  'carrera' => array(
+                                                  'id' => $fila['id_carrera'],
+                                                  'nombre' => $fila['nombre_carreras'],
+                                                  'siglas' => $fila['siglas'] 
+                                               ),
+                                  'unidades' => array());
+
                 $this->addNewUnidad($fila);
             }
 
             public function addNewUnidad($fila){
               // Unidad
-              if (isset($fila['IdUnidad'])){
-              $this->avances[$fila['IdMateria']]['Unidades'][$fila['IdUnidad']]= array(
-                                'NombreUnidad' => $fila['NombreUnidad'],
-                                'UEvaluacionP' => $fila['UEvaluacionP'],
-                                'UEvaluacionR' => $fila['UEvaluacionR'],
+              if (isset($fila['id_unidad'])){
+              $this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']]= array(
+                                'nombre' => $fila['nombre_unidad'],
+                                'fecha_pro' => $fila['Evaluacion_programada'],
+                                'fecha_real' => $fila['Evaluacion_real'],
                                 'Subtemas' => array());
 
                 $this->addNewSubtema($fila);
@@ -71,12 +77,12 @@
             public function addNewSubtema($fila){
               //Subtema
               if (isset($fila['IdSubtema'])) {
-                $this->avances[$fila['IdMateria']]['Unidades'][$fila['IdUnidad']]['Subtemas'][$fila['IdSubtema']] = array(
-                                  'NombreSubtema' => $fila['NombreSubtema'],
-                                  'SEvaluacionP' => $fila['SEvaluacionP'],
-                                  'SEvaluacionR' => $fila['SEvaluacionR'],
-                                  'Actividad' => $fila['Actividad'],
-                                  'Recurso' => $fila['Recurso']);
+                $this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']]['Subtemas'][$fila['id_subtema']] = array(
+                                  'nombre' => $fila['nombre_subtema'],
+                                  'fecha_pro' => $fila['fecha_programada'],
+                                  'fecha_real' => $fila['fecha_real'],
+                                  'actividad' => $fila['Actividad'],
+                                  'recurso' => $fila['Recurso']);
               }
             }
      }

@@ -27,19 +27,19 @@
 
 						 <div class="row row_table <?=($cont%2)==0?'dark':'clear';?>" clave="<?=$key; ?>">
 						    <div class="col-xs-4 nopadding">
-						 	    <p><?=$value['NombreMateria'];?></p>
+						 	    <p class="Nombre"><?=$value['NombreMateria'];?></p>
 						    </div>
 						    <div class="col-xs-1 nopadding">
-						 	    <p><?=$value['Creditos'];?></p>
+						 	    <p class="Creditos"><?=$value['Creditos'];?></p>
 						    </div>
 						    <div class="col-xs-1 nopadding">
-						 	    <p><?=$value['Edificio'];?></p>
+						 	    <p class="Edificio"><?=$value['Edificio'];?></p>
 						    </div>
 						    <div class="col-xs-2 nopadding">
-						 	    <p><?=$value['Departamentos'];?></p>
+						 	    <p class="Departamento"><?=$value['Departamentos'];?></p>
 						    </div>
 						    <div class="col-xs-2 nopadding">
-						 	    <p><?=$value['Carrera'];?></p>
+						 	    <p class="Carrera"><?=$value['Carrera'];?></p>
 						    </div>
 						    <div class="col-xs-2 nopadding">
 						      <button class="b_basura"><i class="fa fa-trash" aria-hidden="true"></i></button>
