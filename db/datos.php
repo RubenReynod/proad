@@ -64,7 +64,7 @@
             public function addNewUnidad($fila){
               // Unidad
               if (isset($fila['id_unidad'])){
-              $this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']]= array(
+              $this->avances[$fila['Clave']]['unidades'][$fila['id_unidad']]= array(
                                 'nombre' => $fila['nombre_unidad'],
                                 'fecha_pro' => $fila['Evaluacion_programada'],
                                 'fecha_real' => $fila['Evaluacion_real'],
@@ -77,7 +77,7 @@
             public function addNewSubtema($fila){
               //Subtema
               if (isset($fila['IdSubtema'])) {
-                $this->avances[$fila['Clave']]['Unidades'][$fila['id_unidad']]['Subtemas'][$fila['id_subtema']] = array(
+                $this->avances[$fila['Clave']]['unidades'][$fila['id_unidad']]['Subtemas'][$fila['id_subtema']] = array(
                                   'nombre' => $fila['nombre_subtema'],
                                   'fecha_pro' => $fila['fecha_programada'],
                                   'fecha_real' => $fila['fecha_real'],

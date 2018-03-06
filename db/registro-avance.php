@@ -2,7 +2,7 @@
 include('conexion.php');
 include('datos.php');
 session_start();
-
+include('avances.php');
 // insert tabla nrc
 $sql = "insert into nrc values('".($_POST["datos"]["nrc"])."','".($_SESSION["profesor"]->id)."')";
 $bandera = conectar()->query($sql);
@@ -17,6 +17,10 @@ $sql = "insert into materias values('".$_POST["datos"]["clave"]."','".$_POST["da
 $bandera = conectar()->query($sql);                                    
 
 $status['status'] = $bandera;
+
+if (!empty($status['status'])) {
+	get_avances($_SESSION['profesor']->id);
+}
 
 echo json_encode($status);
 

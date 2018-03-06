@@ -3,18 +3,18 @@
 ?>
 <div class="row">
       <div class="info_materia">
-            <p class="nrc"><b>NRC: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['Nrc']; ?></p>
+            <p class="nrc"><b>NRC: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['nrc']; ?></p>
             <p class="clave" id="<?=$_GET['clave'];?>"><b>Clave: </b><?php echo $_GET['clave']; ?></p>
-            <p class="nombre"><b>Nombre de la materia: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['NombreMateria']; ?></p>
+            <p class="nombre"><b>Nombre de la materia: </b><?php echo $_SESSION['profesor']->avances[$_GET['clave']]['nombre']; ?></p>
       </div>
       <div class="col-xs-2">
-            <?php foreach ($_SESSION['profesor']->avances[$_GET['clave']]['Unidades'] as $key => $value) : ?>
+            <?php foreach ($_SESSION['profesor']->avances[$_GET['clave']]['unidades'] as $key => $value) : ?>
                  <div id="u-<?php echo $key ?>" class="tabs__" status="inactive" onclick="show_forms(this);">
-                      <p><?php echo $value['NombreUnidad']; ?></p>
+                      <p><?php echo $value['nombre']; ?></p>
                  </div>
             <?php endforeach; ?>
       </div>
-      <?php foreach ($_SESSION['profesor']->avances[$_GET['clave']]['Unidades'] as $key => $value) : ?>
+      <?php foreach ($_SESSION['profesor']->avances[$_GET['clave']]['unidades'] as $key => $value) : ?>
       <div class="col-xs-10 forms__" id="<?='form-'.$key ?>" status="inactive">
             <div class="row">
                    <div class="col-xs-9">
@@ -57,19 +57,19 @@
                      foreach ($value['Subtemas'] as $key2 => $value2) : ?>
                          <div class="row row_table <?=(($cont%2)==0?'dark':'clear')?>">
                               <div class="col-xs-2 nopadding">
-                                  <p><?=$value2['NombreSubtema'];?></p>
+                                  <p><?=$value2['nombre'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
-                                  <p><?=$value2['SEvaluacionP'];?></p>
+                                  <p><?=$value2['fecha_programada'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
-                                  <p><?=$value2['SEvaluacionR'];?></p>
+                                  <p><?=$value2['fecha_real'];?></p>
                               </div>
                               <div class="col-xs-3 nopadding">
-                                  <p><?=$value2['Actividad'];?></p>
+                                  <p><?=$value2['actividad'];?></p>
                               </div>
                               <div class="col-xs-3 nopadding">
-                                  <p><?=$value2['Recurso'];?></p>
+                                  <p><?=$value2['recurso'];?></p>
                               </div>
                          </div>
                      <?php $cont=$cont+1; endforeach; ?>
