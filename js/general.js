@@ -144,7 +144,6 @@ $('.form_registro').on('submit',function(evt){
 });
 
 // vista formulario Unidad
-
 function add_content (btn){
 	if ($("#select_avance").val()!="") {
 			$('#crear_'+btn).load((btn=='unidades'?'../elements/form_unidad.php?':'../elements/form_subtema.php?')+$.param({clave:$("#select_avance").val()}));
@@ -173,12 +172,13 @@ function add_form(tipo,id = ''){
                            '<input class="Fecha_programada" name="datos[fecha_programada]" type="date" name="" value="" required>'+
                       '</form>';
 		}else if (tipo=='subtema') {
-			formulario = '<form class="form_unidad form_u-'+cont_+'" action="../db/guardar_subtema.php" method="post">'+
-												'<input class="nombre" type="text" name="datos[nombre]" value="" placeholder="Nombre" required>'+
-												'<input class="Fecha_real" type="date" name="datos[fecha_real]" value="" required>'+
-												'<input class="Fecha_programada" type="date" name="datos[fecha_programada]" value="" required>'+
-												'<input class="actividad" type="text" name="datos[actividad]" value="" placeholder="Actividad" required>'+
-												'<input class="recurso" type="text" name="datos[recurso]" value="" placeholder="Recurso" required>'+
+			formulario = '<form class="form_subtema" action="../db/guardar_subtema.php" method="post" >'+
+			                  '<input class="clave" type="number" name="datos[id_unidad]" value="'+id+'" style="display:none;" required>'+
+												'<input type="text" name="datos[nombre]" value="" placeholder="Nombre" required>'+
+												'<input type="date" name="datos[fecha_real]" value="" required>'+
+												'<input type="date" name="datos[fecha_programada]" value="" required>'+
+												'<input type="text" name="datos[actividad]" value="" placeholder="Actividad" required>'+
+												'<input type="text" name="datos[recurso]" value="" placeholder="Recurso" required>'+
 									 '</form>';
 		}
 		lista.set(cont_+"",$('#tab_'+tipo+id).parents('.forms__').attr('id'));
@@ -204,6 +204,29 @@ function add_row_unidad(datos){
 			$(this).dequeue();
 		});
 }
+
+function add_row_subtema(datos){
+    var cont = $('#crear_subtemas .table_ .row_table').length;
+    var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'" style="display:none;">';
+          datos.forEach(function(value,key){
+                if (value.name != 'datos[id_unidad]') {
+                    if (value.name != 'datos[nombre]' | value.name != 'datos[fecha_real]' | value.name != 'datos[fecha_programada]') {
+                        row = row+'<div class="col-xs-2 nopadding '+value.value+'">'+
+                                  '<p>'+value.value+'</p>'+
+                              '</div>';  
+                    }else{
+                        row = row+'<div class="col-xs-3 nopadding '+value.value+'">'+
+                                '<p>'+value.value+'</p>'+
+                            '</div>';  
+                    }  
+                }
+          });
+       row = row+'</div>';
+    $('#crear_subtemas .forms__[status="active"] .table_').append(row).queue(function(){
+      $('.row_table:last-child',this).slideDown('slow');
+      $(this).dequeue();
+    });
+}
 function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
 	  var cont = $('#form-'+table+' .table_ .row_table').length;
 	  var row ='<div class="row row_table '+((cont%2)==0?'clear':'dark')+'">'+
@@ -226,20 +249,19 @@ function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
 		$('#form-'+table+' .table_').append(row);
 }
 function show_form_unidad(cual){
-	  $('.form_unidad').slideUp('slow');
-		$('.form_unidad[tab="'+cual+'"]').slideDown('slow');
-		$('.tab').removeClass('active');
-		$('.tab-'+cual).addClass('active');
+	$('.form_unidad').slideUp('slow');
+	$('.form_unidad.form_u-'+cual+'').slideDown('slow');
+	$('.tab').removeClass('active');
+	$('.tab-'+cual).addClass('active');
 }
 
 function remove_unidad(cual){
-	console.log(cual);
 	  $('.tab-'+cual).remove();
 	  $('.form_unidad[tab="'+cual+'"').remove();
 	  lista.delete(cual);
 }
  
- $('.secciones').on('submit','.form_unidad',function(evt){
+$('.secciones').on('submit','.form_unidad',function(evt){
         evt.preventDefault();
         var that = this;
         var datos = $(this).serializeArray();
@@ -260,7 +282,29 @@ function remove_unidad(cual){
                 }
         	}
         });    
+ });
 
+$('.secciones').on('submit','.form_subtema',function(evt){
+        evt.preventDefault();
+        var that = this;
+        var datos = $(this).serializeArray();
+        $.ajax({
+        	type: 'post',
+        	data: datos,
+        	url: $(this).attr('action'),
+        	dataType: 'json',
+        	success: function(resp){
+                if (resp.status) {
+                  console.log(resp);
+                	alert("Se guardo exitosamente");
+                  console.log($('.clave',that).val());
+                	remove_unidad($('.clave',that).val());
+                	//add_row_subtema(datos);
+                }else{
+                	alert("Fallo al guardar");
+                }
+        	}
+        });    
  });
 
  function guardar_unidad(){
@@ -279,9 +323,23 @@ function remove_unidad(cual){
  	});
  }
 
- function guardar_subtema(btn){
-     var unidad = $(btn).parents('.forms__').attr('id');
-     lista.forEach(function(valor,llave){
+ function guardar_subtema(unidad){
+     //var unidad = $(btn).parents('.forms__').attr('id');
+     console.log($('#form-'+unidad+' .form_subtema'));
+     $('#form-'+unidad+' .form_subtema').each(function(){
+     	 var bandera = true;
+
+     	 $(this).serializeArray().forEach(function(valor,llave){
+     	 	if (valor.value == '') {
+     	 		bandera = false;
+     	 		return false;
+     	 	}
+     	 });
+         if (bandera) {
+         	$(this).submit();
+         }
+     });
+    /* lista.forEach(function(valor,llave){
          if(valor==unidad){
               var nombre=$(".form_u-"+llave).find(".nombre").val(),
                   fecha_real=$(".form_u-"+llave).find(".Fecha_real").val(),
@@ -314,7 +372,7 @@ function remove_unidad(cual){
                    $(".form_u-"+llave).submit();
               }
          }
-     });
+     });*/
  }
 
  // tablas Subtemas
@@ -330,14 +388,13 @@ function show_forms(btn){
 }
 
 // botones mostrar llas tablas en edicion
-
 $('.btn_agregar').click(function(){
 	$('.btn_agregar').attr('status','inactive');
 	$(this).attr('status','active');
-	console.log($(this).attr('type'));
 	$('.acciones').attr('status','inactive');
 	$('.edit_'+$(this).attr('type')).attr('status','active');
 });
+
 //boton eliminar materia
 $('.b_basura').click(function(){
  var fila=$(this).parents('.row_table').attr("clave");
@@ -368,6 +425,7 @@ $('.b_basura').click(function(){
 
  });
 });
+
 // boton mostrar unidad o subtema
 $('.b_ver').click(function(){
 	var clave = $(this).parents('.row_table ').attr('clave');

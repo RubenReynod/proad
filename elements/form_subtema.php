@@ -75,7 +75,7 @@
                      <?php $cont=$cont+1; endforeach; ?>
                 </div>
             </div>
-            <button type="button" class ="btn_form" onclick="guardar_subtema(this);">Guardar</button>
+            <button type="button" class ="btn_form" onclick="guardar_subtema(<?=$key;?>);">Guardar</button>
       </div>
       <?php endforeach; ?>
 </div>
