@@ -54,13 +54,14 @@
                          </div>
                      </div>
                      <?php $cont=1;
+
                      foreach ($value['Subtemas'] as $key2 => $value2) : ?>
                          <div class="row row_table <?=(($cont%2)==0?'dark':'clear')?>">
                               <div class="col-xs-2 nopadding">
                                   <p><?=$value2['nombre'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
-                                  <p><?=$value2['fecha_programada'];?></p>
+                                  <p><?=$value2['fecha_pro'];?></p>
                               </div>
                               <div class="col-xs-2 nopadding">
                                   <p><?=$value2['fecha_real'];?></p>

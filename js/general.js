@@ -166,13 +166,13 @@ function add_form(tipo,id = ''){
 	     tab = '<li class="tab tab-'+cont_+'"><b onclick="show_form_unidad('+cont_+');">'+nombre+'</b><i class="fa fa-times" aria-hidden="true" onclick="remove_unidad('+cont_+');"></i></li>';
 			 formulario = '';
 	 if (tipo=='unidad') {
-				 formulario = '<form class="form_unidad" action="../db/guardar_unidad.php" method="post" tab="'+cont_+'">'+
+				 formulario = '<form class="form_unidad" form="form-'+cont_+'" action="../db/guardar_unidad.php" method="post" tab="'+cont_+'" style="display:none;">'+
                            '<input class="nombre" name="datos[nombre]" type="text" name="" value="" placeholder="Nombre" required>'+
                            '<input class="Fecha_real" name="datos[fecha_real]" type="date" name="" value="" required>'+
                            '<input class="Fecha_programada" name="datos[fecha_programada]" type="date" name="" value="" required>'+
                       '</form>';
 		}else if (tipo=='subtema') {
-			formulario = '<form class="form_subtema" action="../db/guardar_subtema.php" method="post" >'+
+			formulario = '<form class="form_subtema" form="form-'+cont_+'" action="../db/guardar_subtema.php" method="post" style="display:none;">'+
 			                  '<input class="clave" type="number" name="datos[id_unidad]" value="'+id+'" style="display:none;" required>'+
 												'<input type="text" name="datos[nombre]" value="" placeholder="Nombre" required>'+
 												'<input type="date" name="datos[fecha_real]" value="" required>'+
@@ -249,15 +249,16 @@ function add_row_subtema(table,nombre,Fp,Fr,actividad,recurso){
 		$('#form-'+table+' .table_').append(row);
 }
 function show_form_unidad(cual){
-	$('.form_unidad').slideUp('slow');
-	$('.form_unidad.form_u-'+cual+'').slideDown('slow');
+  console.log($('form[form="form-'+cual+'"]'));
+	$('form[form^="form-"]').slideUp('slow');
+	$('form[form="form-'+cual+'"]').slideDown('slow');
 	$('.tab').removeClass('active');
 	$('.tab-'+cual).addClass('active');
 }
 
 function remove_unidad(cual){
 	  $('.tab-'+cual).remove();
-	  $('.form_unidad[tab="'+cual+'"').remove();
+	  $('form[form="form-'+cual+'"]').remove();
 	  lista.delete(cual);
 }
  
@@ -325,8 +326,7 @@ $('.secciones').on('submit','.form_subtema',function(evt){
 
  function guardar_subtema(unidad){
      //var unidad = $(btn).parents('.forms__').attr('id');
-     console.log($('#form-'+unidad+' .form_subtema'));
-     $('#form-'+unidad+' .form_subtema').each(function(){
+     $('#form-'+unidad+' .form_').each(function(){
      	 var bandera = true;
 
      	 $(this).serializeArray().forEach(function(valor,llave){
