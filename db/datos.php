@@ -76,7 +76,7 @@
 
             public function addNewSubtema($fila){
               //Subtema
-              if (isset($fila['IdSubtema'])) {
+              if (isset($fila['id_subtema'])) {
                 $this->avances[$fila['Clave']]['unidades'][$fila['id_unidad']]['Subtemas'][$fila['id_subtema']] = array(
                                   'nombre' => $fila['nombre_subtema'],
                                   'fecha_pro' => $fila['fecha_programada'],

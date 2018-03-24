@@ -26,6 +26,7 @@ $consulta_datos = "SELECT p.Codigo, p.Nombre as nombre_profesor,p.ApellidoM, p.A
                                                        "left join subtemas s on s.id_unidad=u.id ".
                                                        "where p.Codigo=".$_POST['datos']['Usuario'];
 
+
     $_SESSION['profesor'] = new Usuario($fila['Codigo'],$fila['Nombre'],$fila['ApellidoP'],$fila['ApellidoM'],$fila['sexo']);
 
     $_SESSION['profesor']->addAvances($consulta_datos);       
