@@ -9,13 +9,9 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    if(window.location.pathname.indexOf('admin')!=-1){
-        require('bootstrap-sass');
-    }
-    else{
-        require('bootstrap');
-    }
-    
+    window.Popper = require('popper.js').default;
+
+    require('bootstrap');
 
 } catch (e) {}
 

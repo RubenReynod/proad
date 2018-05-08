@@ -15,9 +15,9 @@ mix.options({
 });
 
 //Public
-mix.js('resources/assets/js/app.js', 'public/js');	//Archivos Vue
-mix.sass('resources/assets/sass/app.scss', 'public/css');	//Codigo SASS
-mix.less('resources/assets/less/main.less', 'public/css');	// Codigo LESS
+//mix.js('resources/assets/js/app.js', 'public/js');	//Archivos Vue
+//mix.sass('resources/assets/sass/app.scss', 'public/css');	//Codigo SASS
+//mix.less('resources/assets/less/main.less', 'public/css');	// Codigo LESS
 
 // //Dashboard (Panel de administracion)
 mix.js('resources/assets/js/admin.js', 'public/js');	//Archivos Vue

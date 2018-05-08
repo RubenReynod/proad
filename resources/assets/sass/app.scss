@@ -6,8 +6,8 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
+ require('bootstrap');
+@import “~bootstrap/scss/bootstrap.scss”
 // Alertify
 @import "~alertifyjs/build/css/alertify.min";
 @import "~alertifyjs/build/css/themes/default.min";
