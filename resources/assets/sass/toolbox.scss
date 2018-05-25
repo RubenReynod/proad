@@ -1,0 +1,25 @@
+/* ================== Variables =================== */
+$color--background: #009999;
+/* ================== Variables =================== */
+/* ================== Toolbox =================== */
+@mixin cp-property($property,$style){
+    #{$property} : $style;
+    -webkit-#{$property} : $style;
+    -moz-#{$property} : $style;
+    -o-#{$property} : $style;
+    -sm-#{$property} : $style;
+}
+
+%center-align{
+	position: absolute;
+    @include cp-property(transform,translateX(-50%) translateY(-50%));
+    left: 50%;
+    top: 50%;
+}
+
+%vertical-align{
+	position: absolute;
+    @include cp-property(transform,translateY(-50%));
+    top: 50%;
+}
+/* ================== Toolbox =================== */

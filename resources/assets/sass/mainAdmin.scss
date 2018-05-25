@@ -1,3 +1,48 @@
+/* ============= Login ============== */
+#login{
+    background: $color--background;
+    height: 100vh;
+    min-height: 500px;
+    position: relative;
+    .img-fondo{
+         @extend %center-align;
+         width: 90%;
+         max-width: 350px;
+         opacity: 0.5;
+         filter: grayscale(1);
+         img{
+            width: 100%;
+         }
+    }
+    .login{
+        @extend %center-align;
+        width: 90%;
+        max-width: 400px;
+        padding: 15px;
+        background: rgba(230,230,250,0.3);
+        border-radius: 10px;
+        .input-content{
+            position: relative;
+            margin-bottom: 15px;
+            input{
+                padding-left: 30px;
+                padding-right: 15px;
+                height: 35px;
+                background: rgba(230,230,250,0.9);       
+                width: 100%;
+                border: 1px solid $color--background;
+            }
+            i{
+                @extend %vertical-align;
+                font-size: 16px;
+                left: 8px;
+                opacity: 0.7;
+            }
+        }
+    }
+}
+/* ============= Login ============== */
+
 a{
 	cursor:pointer;
 }

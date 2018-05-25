@@ -1,6 +1,24 @@
 <template>
 	<main role="main">
-	<div :class="{'logging-in login-form-fall':inPetition,'page-body login-page':2>1}">
+		<div id="login">
+			<div class="img-fondo">
+				<img src="public/images/udg.png">
+			</div>
+			<div class="login">
+				<form type="post">
+					<div class="input-content">
+						<input type="text" placeholder="Nip" required>
+						<i class="fas fa-user"></i>
+					</div>
+					<div class="input-content">
+						<input type="password" placeholder="Codigo" required>
+						<i class="fas fa-key"></i>
+					</div>
+					<button>Entrar</button>
+				</form>
+			</div>
+		</div>
+	<!--<div :class="{'logging-in login-form-fall':inPetition,'page-body login-page':2>1}">
 	<div class="login-container">
 	
 		<div class="login-header login-caret">
@@ -10,10 +28,10 @@
 				<a class="logo">
 					<img :src="logo()" width="300" alt="" />
 				</a>
-				<p class="description">Usuario, ingresa para entrar al area de administracion!</p>
+				<p class="description">Usuario, ingresa para entrar al area de administracion!</p>-->
 				
 				<!-- progress bar indicator -->
-				<div class="login-progressbar-indicator">
+				<!--<div class="login-progressbar-indicator">
 					<h3>{{percent}}%</h3>
 					<span>Ingresando...</span>
 				</div>
@@ -70,19 +88,19 @@
 				</form>
 				
 				
-				<div class="login-bottom-links">
+				<div class="login-bottom-links">-->
 					
 					<!-- <a class="link">Olvide mi contraseña</a> -->
 					
 									
-				</div>
+				<!--</div>
 				
 			</div>
 			
 		</div>
 		
 	</div>
-	</div>
+	</div>-->
 	</main>
 </template>
 

@@ -10459,6 +10459,80 @@ a.text-dark:hover, a.text-dark:focus {
   color: #ff9800;
 }
 
+/* ================== Variables =================== */
+/* ================== Variables =================== */
+/* ================== Toolbox =================== */
+#login .img-fondo, #login .login {
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  -sm-transform: translateX(-50%) translateY(-50%);
+  left: 50%;
+  top: 50%;
+}
+
+#login .login .input-content i {
+  position: absolute;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -sm-transform: translateY(-50%);
+  top: 50%;
+}
+
+/* ================== Toolbox =================== */
+/* ============= Login ============== */
+#login {
+  background: #009999;
+  height: 100vh;
+  min-height: 500px;
+  position: relative;
+}
+
+#login .img-fondo {
+  width: 90%;
+  max-width: 350px;
+  opacity: 0.5;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+#login .img-fondo img {
+  width: 100%;
+}
+
+#login .login {
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  background: rgba(230, 230, 250, 0.3);
+  border-radius: 10px;
+}
+
+#login .login .input-content {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+#login .login .input-content input {
+  padding-left: 30px;
+  padding-right: 15px;
+  height: 35px;
+  background: rgba(230, 230, 250, 0.9);
+  width: 100%;
+  border: 1px solid #009999;
+}
+
+#login .login .input-content i {
+  font-size: 16px;
+  left: 8px;
+  opacity: 0.7;
+}
+
+/* ============= Login ============== */
 a {
   cursor: pointer;
 }
