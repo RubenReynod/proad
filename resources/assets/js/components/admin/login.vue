@@ -5,7 +5,9 @@
 				<img src="public/images/udg.png">
 			</div>
 			<div class="login">
-				<form type="post">
+				<img class="logo" src="public/images/logo.png">
+				<p class="description text-center">Bienvenido</p>
+				<form type="post" class="text-right">
 					<div class="input-content">
 						<input type="text" placeholder="Nip" required>
 						<i class="fas fa-user"></i>

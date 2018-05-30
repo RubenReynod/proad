@@ -57637,6 +57637,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
      mounted: function mounted() {
@@ -57704,7 +57706,16 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "login" }, [
-          _c("form", { attrs: { type: "post" } }, [
+          _c("img", {
+            staticClass: "logo",
+            attrs: { src: "public/images/logo.png" }
+          }),
+          _vm._v(" "),
+          _c("p", { staticClass: "description text-center" }, [
+            _vm._v("Bienvenido")
+          ]),
+          _vm._v(" "),
+          _c("form", { staticClass: "text-right", attrs: { type: "post" } }, [
             _c("div", { staticClass: "input-content" }, [
               _c("input", {
                 attrs: { type: "text", placeholder: "Nip", required: "" }
