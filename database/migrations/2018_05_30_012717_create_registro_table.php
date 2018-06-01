@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImagesTable extends Migration
+class CreateRegistroTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('registro', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('path');
-            $table->string('disk');
-            $table->string('key');
+            $table->string('id_materia',8);
+            $table->integer('id_alumno');
             $table->timestamps();
+
+            //Relations
+            $table->foreign('id_materia')->references('id')->on('materias');
+            $table->foreign('id_alumno')->references('id')->on('alumnos');
         });
     }
 
@@ -29,6 +32,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('registro');
     }
 }

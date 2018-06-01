@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConektaOrdersTable extends Migration
+class CreateNrc extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateConektaOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('conekta_orders', function (Blueprint $table) {
+        Schema::create('nrc', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('token');
-            $table->string('amount');
-            $table->string('payment_status');
-            $table->string('parent_id');
-            $table->string('created_at');
+            $table->integer('id_profesor');
+            $table->timestamps();
+
+            //Relations
+            $table->foreign('id_profesor')->references('id')->on('profesores');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateConektaOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conekta_orders');
+        Schema::dropIfExists('nrc');
     }
 }
