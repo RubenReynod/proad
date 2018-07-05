@@ -1,10 +1,10 @@
-_table<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaterias extends Migration
+class CreateMateriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,22 +14,25 @@ class CreateMaterias extends Migration
     public function up()
     {
         Schema::create('materias', function (Blueprint $table) {
-            $table->string('clave',8);
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('clave',8)->unique();
             $table->string('nombre',50);
-            $table->integer('creditos',11);
+            $table->tinyInteger('creditos');
             $table->enum('edificio',['A','B','C','D','E','F','G','H','I','J','K']);
-            $table->integer('id_avance');
-            $table->integer('id_departamentos');
-            $table->integer('id_carrera');
-            $table->timestamps();
-
+            $table->integer('id_avance')->unsigned();
+            $table->integer('id_departamentos')->unsigned();
+            $table->integer('id_carrera')->unsigned();
             //Relations
             $table->foreign('id_avance')->references('id')->on('avances_programaticos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->foreign('id_departamentos')->references('id')->on('departamentos');
-            $table->foreign('id_carrera')->references('id')->on('carreras');      
+            $table->foreign('id_carrera')->references('id')->on('carreras'); 
 
+            $table->timestamps();
+
+                 
         });
     }
 

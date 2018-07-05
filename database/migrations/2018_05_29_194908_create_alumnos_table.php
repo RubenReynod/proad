@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlumnos extends Migration
+class CreateAlumnosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,19 @@ class CreateAlumnos extends Migration
     public function up()
     {
         Schema::create('alumnos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('nombre',30);
             $table->string('apellidoP',30);
             $table->string('apellidoM',30);
             $table->enum('estatus',['activo','inactivo'])->default('activo');
             $table->integer('id_carrera')->unsigned();
-            $table->timestamps();
-
             //Relations
             $table->foreign('id_carrera')->references('id')->on('carreras');
+            
+            $table->timestamps();
+
+            
         });
     }
 

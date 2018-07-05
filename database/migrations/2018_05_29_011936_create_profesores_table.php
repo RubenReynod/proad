@@ -14,6 +14,7 @@ class CreateProfesoresTable extends Migration
     public function up()
     {
         Schema::create('profesores', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('codigo');
             $table->string('nombre',30);
             $table->string('apellidoP',30);

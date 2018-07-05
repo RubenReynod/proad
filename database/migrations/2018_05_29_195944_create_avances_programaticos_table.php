@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAvancesProgramaticos extends Migration
+class CreateAvancesProgramaticosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,17 @@ class CreateAvancesProgramaticos extends Migration
     public function up()
     {
         Schema::create('avances_programaticos', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('id_nrc',11)->unsigned();
-            $table->integer('id_ciclo',6)->unsigned();
-            $table->timestamps();
-
+            $table->integer('id_nrc')->unsigned();
+            $table->integer('id_ciclo')->unsigned();
             //Relations
             $table->foreign('id_nrc')->references('id')->on('nrc');
-            $table->foreign('id_ciclo')->references('id')->on('ciclo');
+            $table->foreign('id_ciclo')->references('id')->on('ciclos');
+
+            $table->timestamps();
+
+            
         });
     }
 

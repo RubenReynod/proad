@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEvaluacion extends Migration
+class CreateUnidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,21 @@ class CreateEvaluacion extends Migration
      */
     public function up()
     {
-        Schema::create('evaluacion', function (Blueprint $table) {
+        Schema::create('unidades', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('nombre',75);
             $table->date('fecha_programada');
             $table->date('fecha_real');
-            $table->integer('id_subtemas');
+            $table->integer('id_materia')->unsigned();
+            //Relations
+            $table->foreign('id_materia')->references('id')->on('materias')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+
             $table->timestamps();
 
-            //Relations
-            $table->foreign('id_subtemas')->references('id')->on('subtemas')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade')
+            
         });
     }
 
@@ -34,6 +38,6 @@ class CreateEvaluacion extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluacion');
+        Schema::dropIfExists('unidades');
     }
 }

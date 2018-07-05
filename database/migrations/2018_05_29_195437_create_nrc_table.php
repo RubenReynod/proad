@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCronograma extends Migration
+class CreateNrcTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateCronograma extends Migration
      */
     public function up()
     {
-        Schema::create('cronogramas', function (Blueprint $table) {
+        Schema::create('nrc', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('id_departamento')->unsigned();
-            $table->string('id_ciclo',6);
+            $table->integer('id_profesor')->unsigned();
+            //Relations
+            $table->foreign('id_profesor')->references('codigo')->on('profesores');
+
             $table->timestamps();
 
-            //Relations
-            $table->foreign('id_departamento')->references('id')->on('departamentos');
-            $table->foreign('id_ciclo')->references('id')->on('ciclos');
+            
         });
     }
 
@@ -32,6 +33,6 @@ class CreateCronograma extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cronogramas');
+        Schema::dropIfExists('nrc');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegistroTable extends Migration
+class CreateCronogramaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateRegistroTable extends Migration
      */
     public function up()
     {
-        Schema::create('registro', function (Blueprint $table) {
+        Schema::create('cronograma', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('id_materia')->unsigned();
-            $table->integer('id_alumno')->unsigned();
-
+            $table->integer('id_departamento')->unsigned();
+            $table->integer('id_ciclo')->unsigned();
             //Relations
-            $table->foreign('id_materia')->references('id')->on('materias');
-            $table->foreign('id_alumno')->references('id')->on('alumnos');
+            $table->foreign('id_departamento')->references('id')->on('departamentos');
+            $table->foreign('id_ciclo')->references('id')->on('ciclos');
             
             $table->timestamps();
 
@@ -36,6 +35,6 @@ class CreateRegistroTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registro');
+        Schema::dropIfExists('cronograma');
     }
 }
