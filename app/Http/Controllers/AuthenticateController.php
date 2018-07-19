@@ -12,8 +12,6 @@ use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Storage;
 //Has para contraseñas
 use Illuminate\Support\Facades\Hash;
-//Servicios de imagenes
-use Images;
 //Modelo de usuario
 
 class AuthenticateController extends Controller
@@ -22,7 +20,8 @@ class AuthenticateController extends Controller
     public function authenticate(Request $Request)
     {
         //Obtiene credenciales mandadas en la peticion.
-        $credentials = $Request->all();       
+        $credentials = $Request->all();   
+
         //Intenta el loggeo con las credenciales
     	try {
     		if(!$token=JWTAuth::attempt($credentials)){
@@ -35,8 +34,8 @@ class AuthenticateController extends Controller
     	}
         //Esto solo se ejecutara en caso de que las credenciales sean correctas.
     	$user=Auth::user();
-        $user->img;
-        $user->getRoleNames();
+        //$user->img;
+        //$user->getRoleNames();
     	$response = array(
     		'token' => "Bearer ".$token, 
     		'user'=>$user,
@@ -98,7 +97,7 @@ class AuthenticateController extends Controller
     //Metodo para refrescar un token
     public function generateToken(Request $request)
     {
-        $user=User::where('email',$request->email);
+        $user=Profesores::where('codigo',$request->email);
         if(empty($user))
             return response()->json(['msg'=>'Email no registrado!']);
 
