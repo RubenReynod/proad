@@ -13,7 +13,7 @@
 					</div>
 				</div>
 				
-				<div class="panel-body">
+				<!--<div class="panel-body">
 					<form role="form" class="form-horizontal" @submit.prevent="newUser($event.target)">
 
 						<input-form name="nombre" text="Nombre" :data.sync="user.name" validate="alpha_spaces|required|min:5"></input-form>
@@ -55,7 +55,7 @@
 							</div>
 						</div>
 					</form>					
-				</div>			
+				</div>-->			
 			</div>		
 		</div>
 
@@ -66,8 +66,8 @@
 		data(){
 			return {
 				user:{
-					name:"",
-					email:"",
+					nombre:"",
+					apellidoP:"",
 					password:"",
 					phone:"",
 					celphone:"",

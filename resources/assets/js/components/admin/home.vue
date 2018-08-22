@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="col-md-offset-2 col-md-8">
+		<!--<div class="col-md-offset-2 col-md-8">
 			<div class="profile-env"> 
 				<header class="row"> 
 					<div class="col-sm-2"> <a class="profile-picture"> 
@@ -22,7 +22,7 @@
 								<li> <a> <i class="fas fa-at"></i> {{user.email}}</a> </li> 
 								<li> <a> <i class="fas fa-phone"></i> {{user.phone}}</a> </li> 
 								<li> <a> <i class="fas fa-mobile"></i> {{user.celphone}}</a> </li> 
-							</ul> <!-- tabs for the profile links --> 
+							</ul> 
 							<ul class="nav nav-tabs"> 
 								<li><router-link to="/profile/">Editar perfil</router-link></li> 
 							</ul> 
@@ -41,7 +41,7 @@
 									<img :src="'/img/'+$parent.user.img.key" alt="" class="img-circle" width="44"> 
 								</a>
 							</aside> 
-							<div class="story-content"> <!-- story header --> 
+							<div class="story-content">
 								<header> 
 									<div class="publisher"> 
 										<router-link v-if="notification.url!=null" :to="notification.url">{{$parent.user.name}}</router-link>
@@ -50,14 +50,14 @@
 									</div> 
 									<div class="story-type"> <i :class="notification.icon"></i> </div> 
 								</header> 
-								<div class="story-main-content"> <p>{{notification.text}} </p> </div> <!-- story like and comment link --> 
-								<!-- separator --> <hr> 
+								<div class="story-main-content"> <p>{{notification.text}} </p> </div> story like and comment link 
+								 <hr> 
 							</div> 
 						</article>
 					</div>
 				</section>
 			</div>
-		</div>
+		</div>-->
 	</div>
 </template>
 <script type="text/javascript">
@@ -76,12 +76,12 @@
 			}
 		},
 		computed:{
-			roles:function(){
+			/*roles:function(){
 				let roles=jQuery.map(this.user.roles,(row)=>{
 					return row.name;
 				});
 				return roles.join(", ");
-			}
+			}*/
 		},
 		methods:{
 			profile(){
@@ -89,19 +89,19 @@
 			},
 			getNotifications:function(){
 				this.$parent.inPetition=true;
-				axios.get(tools.url('/api/notifications/'+this.user.id))
+				/*axios.get(tools.url('/api/notifications/'+this.user.codigo))
 				.then((response)=>{
 					this.notifications=response.data;
 					this.$parent.inPetition=false;
 				})
 				.catch(()=>{
 					this.$parent.inPetition=false;
-				});
+				});*/
 			},
 		},
         mounted() {
         	this.user=this.$parent.user;
-        	this.getNotifications();
+        	//this.getNotifications();
         }
     }
 </script>

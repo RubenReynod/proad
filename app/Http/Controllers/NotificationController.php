@@ -30,13 +30,13 @@ class NotificationController extends Controller
      */
     public function resume($user_id)
     {
-        $notifications=Notification::where('readed',false)->get();
+        /*$notifications=Notification::where('readed',false)->get();
         if(empty($notifications)){
             $notifications=Notification::take(4)->get();
         }
         $notifications=Notification::latest()->take(4)->get();
 
-        return response()->json($notifications);
+        return response()->json($notifications);*/
     }
 
     /**

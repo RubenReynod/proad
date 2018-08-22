@@ -24,12 +24,13 @@ class UserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|email|unique:users,email,'.$this->id.",id",
-            'password'=>'required_without:id|min:5',
-            'name'=>'required|min:5',
-            'phone'=>'digits:8',
-            'celphone'=>'digits:10',     
-            'image'=>'image|mimes:jpeg,bmp,png,jpg',
+            'codigo'=>'required|unique:profesores,'.$this->id.",codigo",
+            'contraseña'=>'required_without:id|min:5',
+            'nombre'=>'digits:5',
+            'apellidoP'=>'digits:15',
+            'apellidoM'=>'digits:15',
+            'status'=>'digits:10',
+            'sexo'=>'digits:8',     
         ];
     }
 }

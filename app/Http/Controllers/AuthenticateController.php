@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticateController extends Controller
 {
+     protected $primaryKey = 'codigo';
+    
     //Metodo de autentificacion
     public function authenticate(Request $Request)
     {
         //Obtiene credenciales mandadas en la peticion.
-        $credentials = $Request->all();   
-
-        //Intenta el loggeo con las credenciales
+        $credentials = $Request->only(['codigo', 'password']);
     	try {
     		if(!$token=JWTAuth::attempt($credentials)){
                 //Respuesta en caso de credenciales incorrectas
@@ -34,8 +34,6 @@ class AuthenticateController extends Controller
     	}
         //Esto solo se ejecutara en caso de que las credenciales sean correctas.
     	$user=Auth::user();
-        //$user->img;
-        //$user->getRoleNames();
     	$response = array(
     		'token' => "Bearer ".$token, 
     		'user'=>$user,
@@ -45,17 +43,15 @@ class AuthenticateController extends Controller
     }
 
     //Metodo de logout
-    public function logout(){
+    /*public function logout(){
         $token=JWTAuth::getToken();
     	JWTAuth::invalidate($token);
     	return response()->json(["msg"=>"Nos vemos!"],200);
-    }
+    }*/
 
     //Metodo para obtener informacion del usuario loggeado
-    public function me(){
-        $user=JWTAuth::authenticate();
-        $user->img;
-        $user->getRoleNames();
+    public function session(){
+        $user=JWTAuth::toUser(JWTAuth::getToken());
     	$response=array(
     		"user"=>$user
     	);
@@ -63,7 +59,7 @@ class AuthenticateController extends Controller
     }
 
     //Metodo de actualizacion de usuario (usuario logeado)
-    public function update(UserFormRequest $request)
+    /*public function update(UserFormRequest $request)
     {
         $user=Auth::user();
         $user->name=$request->name;
@@ -76,31 +72,18 @@ class AuthenticateController extends Controller
             $user->password=Hash::make($request->password);
         }
 
-        if(isset($request->image)){
-            if ($user->image_id!=1) {
-                //Borramos la imagen anterior
-                Images::delete($user->image_id);
-            }
-            
-            //Subimos la nueva imagen
-            $image_id=Images::save($request->image);
-            $user->image_id=$image_id;
-        }
-
         $user->save();
 
-        $user->img;
-
         return response()->json($user->id);
-    }
+    }*/
 
     //Metodo para refrescar un token
-    public function generateToken(Request $request)
+    /*public function generateToken(Request $request)
     {
         $user=Profesores::where('codigo',$request->email);
         if(empty($user))
             return response()->json(['msg'=>'Email no registrado!']);
 
-        // Sin terminar
-    }
+
+    }*/
 }

@@ -16,8 +16,11 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $primaryKey = 'codigo';
+    protected $table = 'profesores';
+
     protected $fillable = [
-        'name', 'email', 'password','phone','celphone','access','image_id'
+        'codigo', 'nombre', 'apellidoP','apellidoM','estatus','contraseña','sexo'
     ];
 
     /**
@@ -29,18 +32,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function img()
-    {
-        return $this->hasOne('App\Image','id','image_id');
-    }
-
-    public function cards()
-    {
-        return $this->hasMany('App\Conekta_card','parent_id','token');
-    }
-
-    public function orders()
-    {
-        return $this->hasMany('App\Conekta_order','parent_id','token');
-    }
 }

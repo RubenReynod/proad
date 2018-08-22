@@ -25276,14 +25276,14 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         auth: function auth() {
             var _this = this;
 
-            axios.get(tools.url("/api/me")).then(function (response) {
-                _this.user = response.data.user;
+            axios.get(tools.url("/api/session")).then(function (response) {
+                //this.user=response.data.user;
                 _this.logged = true;
                 if (_this.$route.path == "/login") {
                     _this.$router.push('/home');
                 }
-                _this.alert.msg = "Bienvenido " + _this.user.name;
-                tools.push("Bienvenido " + _this.user.name);
+                _this.alert.msg = "Bienvenido " + _this.user.nombre;
+                tools.push("Bienvenido " + _this.user.nombre);
             }).catch(function (error) {
                 console.log(error);
                 if (error.response) {
@@ -25305,65 +25305,66 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 _this2.alert.class = xclass;
                 _this2.alert.msg = msg;
             }, 200);
-        },
-        handleErrors: function handleErrors(errors) {
-            var err = "";
-
-            if (errors.response) {
-                if (errors.response.data.message) {
-                    err += errors.response.data.message + "<br>";
+        }
+        /*handleErrors:function(errors){
+            var err="";
+              if (errors.response) {
+                if(errors.response.data.message){
+                    err+=errors.response.data.message+"<br>";
                 }
-                if (errors.response.data.msg) {
-                    err += errors.response.data.msg + "<br>";
+                if(errors.response.data.msg){
+                    err+=errors.response.data.msg+"<br>";
                 }
-                if (errors.response.data.errors) {
-                    jQuery.each(errors.response.data.errors, function (k, v) {
-                        err += "*" + k + ": " + v[0] + "<br>";
+                if(errors.response.data.errors){
+                    jQuery.each(errors.response.data.errors,(k,v)=>{
+                        err+="*"+k+": "+v[0]+"<br>";
                     });
                 }
-            } else {
+            }
+            else{
                 console.log(errors);
-                err = "Error desconocido.";
+                err="Error desconocido.";
             }
-
-            this.showMessage(err, "danger");
-        },
-        validateAll: function validateAll(successFn, errorFn) {
-            var _this3 = this;
-
-            var promises = [];
-            var isValid = false;
-
-            for (var child in this.$refs.view.$children) {
-                promises.push(this.$refs.view.$children[child].$validator.validateAll());
+              this.showMessage(err,"danger");
+          },*/
+        /*validateAll:function(successFn,errorFn){
+            
+            let promises = [];
+            let isValid=false;
+              for (let child in this.$refs.view.$children) {
+                promises.push(this.$refs.view.$children[child].$validator.validateAll())
             }
-
-            Promise.all(promises).then(this.$validator.validateAll()).then(function (error) {
-                var errors = [];
-                if (error.indexOf(false) != -1) {
-                    isValid = false;
-                    for (var _child in _this3.$refs.view.$children) {
-                        errors.push(_this3.$refs.view.$children[_child].errors.all());
+              
+            Promise.all(promises)
+            .then(this.$validator.validateAll())
+            .then((error) => {
+                let errors=[];
+                if (error.indexOf(false)!=-1) {
+                    isValid=false;
+                    for (let child in this.$refs.view.$children) {
+                        errors.push(this.$refs.view.$children[child].errors.all());
                     }
-                    errors = jQuery.map(errors, function (row) {
-                        if (row[0]) return row;
+                    errors=jQuery.map(errors,(row)=>{
+                        if(row[0])
+                            return row;
                     });
-                    _this3.showMessage("Existen campos invalidos", "danger");
-                    if (typeof errorFn === 'function') {
+                    this.showMessage("Existen campos invalidos","danger");
+                    if(typeof errorFn === 'function') {
                         errorFn();
                     }
-                } else {
-
-                    if (typeof successFn === 'function') {
+                }
+                else{
+                    
+                    if(typeof successFn === 'function') {
                         successFn();
                     }
                 }
             });
-        }
+                           
+        },*/
     },
     mounted: function mounted() {
         if (localStorage.token) {
-
             this.token = localStorage.token;
             window.axios.defaults.headers.common['Authorization'] = this.token;
             this.auth();
@@ -57558,20 +57559,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-     mounted: function mounted() {},
-
      methods: {
           login: function login() {
                var _this = this;
 
                this.percent = 50;
                this.inPetition = true;
-               axios.post(tools.url("/api/profesores"), this.credentials).then(function (response) {
+               axios.post(tools.url("/api/login"), this.credentials).then(function (response) {
                     _this.$parent.user = response.data.user;
                     _this.$parent.token = response.data.token;
                     localStorage.setItem("token", _this.$parent.token);
                     _this.$parent.logged = true;
-                    _this.$parent.showMessage("Bienvenido " + _this.$parent.user.name);
+                    _this.$parent.showMessage("Bienvenido " + _this.$parent.user.nombre);
                     if (_this.$route.path == "/login") {
                          _this.$router.push('/home');
                     }
@@ -57582,9 +57581,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(error);
                     _this.inPetition = false;
                });
-          },
-          logo: function logo() {
-               return window.tools.url('public/images/logo.png');
           }
      },
      data: function data() {
@@ -57593,7 +57589,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                percent: 0,
                error: false,
                credentials: {
-                    email: "",
+                    codigo: "",
                     password: ""
                }
           };
@@ -57635,9 +57631,59 @@ var render = function() {
             }
           },
           [
-            _vm._m(1),
+            _c("div", { staticClass: "input-content" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.credentials.codigo,
+                    expression: "credentials.codigo"
+                  }
+                ],
+                attrs: { type: "text", placeholder: "Nip", required: "" },
+                domProps: { value: _vm.credentials.codigo },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.credentials, "codigo", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fas fa-user" })
+            ]),
             _vm._v(" "),
-            _vm._m(2),
+            _c("div", { staticClass: "input-content" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.credentials.password,
+                    expression: "credentials.password"
+                  }
+                ],
+                attrs: {
+                  type: "password",
+                  placeholder: "Codigo",
+                  required: ""
+                },
+                domProps: { value: _vm.credentials.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.credentials, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fas fa-key" })
+            ]),
             _vm._v(" "),
             _c("button", [_vm._v("Entrar")])
           ]
@@ -57653,30 +57699,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "img-fondo" }, [
       _c("img", { attrs: { src: "public/images/udg.png" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-content" }, [
-      _c("input", {
-        attrs: { type: "text", placeholder: "Nip", required: "" }
-      }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-user" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-content" }, [
-      _c("input", {
-        attrs: { type: "password", placeholder: "Codigo", required: "" }
-      }),
-      _vm._v(" "),
-      _c("i", { staticClass: "fas fa-key" })
     ])
   }
 ]
@@ -57797,12 +57819,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	computed: {
-		roles: function roles() {
-			var roles = jQuery.map(this.user.roles, function (row) {
-				return row.name;
-			});
-			return roles.join(", ");
-		}
+		/*roles:function(){
+  	let roles=jQuery.map(this.user.roles,(row)=>{
+  		return row.name;
+  	});
+  	return roles.join(", ");
+  }*/
 	},
 	methods: {
 		profile: function profile() {
@@ -57810,20 +57832,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 
 		getNotifications: function getNotifications() {
-			var _this = this;
-
 			this.$parent.inPetition = true;
-			axios.get(tools.url('/api/notifications/' + this.user.id)).then(function (response) {
-				_this.notifications = response.data;
-				_this.$parent.inPetition = false;
-			}).catch(function () {
-				_this.$parent.inPetition = false;
-			});
+			/*axios.get(tools.url('/api/notifications/'+this.user.codigo))
+   .then((response)=>{
+   	this.notifications=response.data;
+   	this.$parent.inPetition=false;
+   })
+   .catch(()=>{
+   	this.$parent.inPetition=false;
+   });*/
 		}
 	},
 	mounted: function mounted() {
 		this.user = this.$parent.user;
-		this.getNotifications();
+		//this.getNotifications();
 	}
 });
 
@@ -57835,168 +57857,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-offset-2 col-md-8" }, [
-      _c("div", { staticClass: "profile-env" }, [
-        _c("header", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-2" }, [
-            _c("a", { staticClass: "profile-picture" }, [
-              _c("img", {
-                staticClass: "img-responsive img-circle",
-                attrs: { src: _vm.profile(), width: "115px" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-7" }, [
-            _c("ul", { staticClass: "profile-info-sections" }, [
-              _c("li", [
-                _c("div", { staticClass: "profile-name" }, [
-                  _c("strong", [
-                    _c("a", [_vm._v(_vm._s(_vm.user.name))]),
-                    _vm._v(" "),
-                    _c("a", {
-                      staticClass: "user-status is-online tooltip-primary",
-                      attrs: {
-                        href: "#",
-                        "data-toggle": "tooltip",
-                        "data-placement": "top",
-                        "data-original-title": "Online"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.roles))])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-3" })
-        ]),
-        _vm._v(" "),
-        _c("section", { staticClass: "profile-info-tabs" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
-              _c("ul", { staticClass: "user-details" }, [
-                _c("li", [
-                  _c("a", [
-                    _c("i", { staticClass: "fas fa-at" }),
-                    _vm._v(" " + _vm._s(_vm.user.email))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", [
-                    _c("i", { staticClass: "fas fa-phone" }),
-                    _vm._v(" " + _vm._s(_vm.user.phone))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", [
-                    _c("i", { staticClass: "fas fa-mobile" }),
-                    _vm._v(" " + _vm._s(_vm.user.celphone))
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "nav nav-tabs" }, [
-                _c(
-                  "li",
-                  [
-                    _c("router-link", { attrs: { to: "/profile/" } }, [
-                      _vm._v("Editar perfil")
-                    ])
-                  ],
-                  1
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("section", { staticClass: "profile-feed" }, [
-          _c(
-            "div",
-            { staticClass: "profile-stories" },
-            [
-              _c("b", [_vm._v("Notificaciones:")]),
-              _vm._v(" "),
-              _vm._l(_vm.notifications, function(notification) {
-                return _c("article", { staticClass: "story" }, [
-                  _c(
-                    "aside",
-                    { staticClass: "user-thumb" },
-                    [
-                      notification.url != null
-                        ? _c(
-                            "router-link",
-                            { attrs: { to: notification.url } },
-                            [
-                              _c("img", {
-                                staticClass: "img-circle",
-                                attrs: {
-                                  src: "/img/" + _vm.$parent.user.img.key,
-                                  alt: "",
-                                  width: "44"
-                                }
-                              })
-                            ]
-                          )
-                        : _c("a", [
-                            _c("img", {
-                              staticClass: "img-circle",
-                              attrs: {
-                                src: "/img/" + _vm.$parent.user.img.key,
-                                alt: "",
-                                width: "44"
-                              }
-                            })
-                          ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "story-content" }, [
-                    _c("header", [
-                      _c(
-                        "div",
-                        { staticClass: "publisher" },
-                        [
-                          notification.url != null
-                            ? _c(
-                                "router-link",
-                                { attrs: { to: notification.url } },
-                                [_vm._v(_vm._s(_vm.$parent.user.name))]
-                              )
-                            : _c("a", [_vm._v(_vm._s(_vm.$parent.user.name))]),
-                          _vm._v(" "),
-                          _c("em", [_vm._v(_vm._s(notification.created_at))])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "story-type" }, [
-                        _c("i", { class: notification.icon })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "story-main-content" }, [
-                      _c("p", [_vm._v(_vm._s(notification.text) + " ")])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr")
-                  ])
-                ])
-              })
-            ],
-            2
-          )
-        ])
-      ])
-    ])
-  ])
+  return _c("div", { staticClass: "row" })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58153,8 +58014,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			user: {
-				name: "",
-				email: "",
+				nombre: "",
+				apellidoP: "",
 				password: "",
 				phone: "",
 				celphone: "",
@@ -58236,163 +58097,6 @@ var render = function() {
                 [_c("i", { staticClass: "fas fa-times" })]
               )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c(
-              "form",
-              {
-                staticClass: "form-horizontal",
-                attrs: { role: "form" },
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    _vm.newUser($event.target)
-                  }
-                }
-              },
-              [
-                _c("input-form", {
-                  attrs: {
-                    name: "nombre",
-                    text: "Nombre",
-                    data: _vm.user.name,
-                    validate: "alpha_spaces|required|min:5"
-                  },
-                  on: {
-                    "update:data": function($event) {
-                      _vm.$set(_vm.user, "name", $event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input-form", {
-                  attrs: {
-                    name: "email",
-                    text: "Email",
-                    data: _vm.user.email,
-                    validate: "email|required"
-                  },
-                  on: {
-                    "update:data": function($event) {
-                      _vm.$set(_vm.user, "email", $event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input-form", {
-                  attrs: {
-                    type: "password",
-                    name: "password",
-                    text: "Password",
-                    data: _vm.user.password,
-                    validate: _vm.rule_password,
-                    place: "Solo si desea cambiarla"
-                  },
-                  on: {
-                    "update:data": function($event) {
-                      _vm.$set(_vm.user, "password", $event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input-form", {
-                  attrs: {
-                    type: "tel",
-                    name: "telefono",
-                    text: "Telefono",
-                    data: _vm.user.phone,
-                    validate: "digits:8"
-                  },
-                  on: {
-                    "update:data": function($event) {
-                      _vm.$set(_vm.user, "phone", $event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input-form", {
-                  attrs: {
-                    type: "tel",
-                    name: "celular",
-                    text: "Celular",
-                    data: _vm.user.celphone,
-                    validate: "digits:10"
-                  },
-                  on: {
-                    "update:data": function($event) {
-                      _vm.$set(_vm.user, "celphone", $event)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { staticClass: "col-sm-3 control-label" }, [
-                    _vm._v("Foto:")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-7" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "fileinput fileinput-new",
-                        attrs: { "data-provides": "fileinput" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "fileinput-new thumbnail",
-                            staticStyle: { width: "200px", height: "150px" },
-                            attrs: { "data-trigger": "fileinput" }
-                          },
-                          [
-                            _c("img", {
-                              attrs: {
-                                src: "/img/" + _vm.user.img.key,
-                                alt: "..."
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", {
-                          staticClass:
-                            "fileinput-preview fileinput-exists thumbnail",
-                          staticStyle: {
-                            "max-width": "200px",
-                            "max-height": "150px"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm._m(1)
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("div", { staticClass: "col-sm-12" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default pull-right",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.$router.push("/home/")
-                          }
-                        }
-                      },
-                      [_vm._v("Cancelar")]
-                    )
-                  ])
-                ])
-              ],
-              1
-            )
           ])
         ]
       )
@@ -58408,41 +58112,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-user" }),
       _vm._v(" Usuario\n\t\t\t\t")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("span", { staticClass: "btn btn-white btn-file" }, [
-        _c("span", { staticClass: "fileinput-new" }, [_vm._v("Select image")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "fileinput-exists" }, [_vm._v("Change")]),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "file", accept: "image/*", name: "image" }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-orange fileinput-exists",
-          attrs: { href: "#", "data-dismiss": "fileinput" }
-        },
-        [_vm._v("Remove")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-success pull-right", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "far fa-save" }), _vm._v(" Guardar")]
-    )
   }
 ]
 render._withStripped = true
@@ -75584,58 +75253,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	computed: {
-		unreaded: function unreaded() {
-			var unread = jQuery.map(this.notification, function (row) {
-				if (row.unread == 0) return row;
-			});
-
-			return unread.length;
-		}
+		/*unreaded:function(){
+  	let unread=jQuery.map(this.notification,(row)=>{
+  		if(row.unread==0)
+  			return row;
+  	});
+  		return unread.length;
+  },*/
 	},
 	methods: {
-		profile: function profile() {
-			return window.tools.url('/img/' + this.$parent.user.img.key);
-		},
-		logout: function logout() {
-			var _this = this;
-
-			axios.post(tools.url("/api/logout")).then(function (response) {
-				_this.$parent.user = {};
-				_this.$parent.token = "";
-				localStorage.removeItem('token');
-				_this.$parent.logged = false;
-				_this.$router.push('/');
-				_this.inPetition = false;
-			}).catch(function (error) {
-				_this.error = error.response.data.error;
-				_this.inPetition = false;
-			});
-		},
-
-		getNotifications: function getNotifications() {
-			var _this2 = this;
-
-			// this.$parent.inPetition=true;
-			axios.get(tools.url('/api/notifications/' + this.$parent.user.id + '/resume')).then(function (response) {
-				_this2.notifications = response.data;
-				// this.$parent.inPetition=false;
-			}).catch(function () {
-				// this.$parent.inPetition=false;
-			});
-		},
-		readAll: function readAll() {
-			var _this3 = this;
-
-			axios.post(tools.url('/api/notifications/' + this.$parent.user.id + '/read_all')).then(function (response) {
-				_this3.getNotifications();
-				// this.$parent.inPetition=false;
-			}).catch(function () {
-				// this.$parent.inPetition=false;
-			});
-		}
+		/*profile(){
+  	return window.tools.url('/img/'+this.$parent.user.img.key);
+  },
+  logout(){
+  	axios.post(tools.url("/api/logout")).then((response)=>{
+      	this.$parent.user={};
+      	this.$parent.token="";
+      	localStorage.removeItem('token');
+      	this.$parent.logged=false;
+      	this.$router.push('/');
+          this.inPetition=false;
+          
+      }).catch((error)=>{
+          this.error=error.response.data.error;			        
+          this.inPetition=false;
+      });
+  },
+  getNotifications:function(){
+  	// this.$parent.inPetition=true;
+  	axios.get(tools.url('/api/notifications/'+this.$parent.user.id+'/resume'))
+  	.then((response)=>{
+  		this.notifications=response.data;
+  		// this.$parent.inPetition=false;
+  	})
+  	.catch(()=>{
+  		// this.$parent.inPetition=false;
+  	});
+  },
+  readAll:function(){
+  	axios.post(tools.url('/api/notifications/'+this.$parent.user.id+'/read_all'))
+  	.then((response)=>{
+  		this.getNotifications();
+  		// this.$parent.inPetition=false;
+  	})
+  	.catch(()=>{
+  		// this.$parent.inPetition=false;
+  	});
+  }	*/
 	},
 	mounted: function mounted() {
-		this.getNotifications();
+		//this.getNotifications();
 	}
 });
 
@@ -75967,46 +75634,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
-		mountMenu: function mountMenu() {
-			window.public_vars.$body = $("body");
-			window.public_vars.$pageContainer = public_vars.$body.find(".page-container");
-			window.public_vars.$chat = public_vars.$pageContainer.find('#chat');
-			window.public_vars.$horizontalMenu = public_vars.$pageContainer.find('header.navbar');
-			window.public_vars.$sidebarMenu = public_vars.$pageContainer.find('.sidebar-menu');
-			window.public_vars.$mainMenu = public_vars.$sidebarMenu.find('#main-menu');
-			window.public_vars.$mainContent = public_vars.$pageContainer.find('.main-content');
-			window.public_vars.$sidebarUserEnv = public_vars.$sidebarMenu.find('.sidebar-user-info');
-			window.public_vars.$sidebarUser = public_vars.$sidebarUserEnv.find('.user-link');
-
-			setup_sidebar_menu();
-			// Horizontal Menu Setup
-			setup_horizontal_menu();
-			//Funciones extras de Neon
-			runExtras();
-		},
-		getMenus: function getMenus() {
-			var _this = this;
-
-			axios.get(tools.url("/api/menu")).then(function (response) {
-				_this.menu = response.data;
-				_this.menu.sort(function (a, b) {
-					return a.position - b.position;
-				});
-				setTimeout(function () {
-					_this.mountMenu();
-				}, 3000);
-			}).catch(function (error) {
-				_this.error = error.response.data.error;
-				_this.inPetition = false;
-			});
-		},
-		logo: function logo() {
-			return window.tools.url('/public/images/logo.png');
-		}
+		/*mountMenu(){
+  	window.public_vars.$body	 	 	= $("body");
+  	window.public_vars.$pageContainer  = public_vars.$body.find(".page-container");
+  	window.public_vars.$chat 			= public_vars.$pageContainer.find('#chat');
+  	window.public_vars.$horizontalMenu = public_vars.$pageContainer.find('header.navbar');
+  	window.public_vars.$sidebarMenu	= public_vars.$pageContainer.find('.sidebar-menu');
+  	window.public_vars.$mainMenu	    = public_vars.$sidebarMenu.find('#main-menu');
+  	window.public_vars.$mainContent	= public_vars.$pageContainer.find('.main-content');
+  	window.public_vars.$sidebarUserEnv = public_vars.$sidebarMenu.find('.sidebar-user-info');
+  	window.public_vars.$sidebarUser 	= public_vars.$sidebarUserEnv.find('.user-link');
+  		setup_sidebar_menu();
+  	// Horizontal Menu Setup
+  	setup_horizontal_menu();
+  	//Funciones extras de Neon
+  	runExtras();
+  },
+  getMenus(){
+  	axios.get(tools.url("/api/menu")).then((response)=>{
+      	this.menu=response.data;
+      	this.menu.sort((a,b)=>{
+      		return a.position-b.position;
+      	});
+      	setTimeout(()=>{
+      		this.mountMenu();
+      	},3000);
+      	
+      }).catch((error)=>{
+          this.error=error.response.data.error;			        
+          this.inPetition=false;
+      });
+  	
+  },
+  logo(){
+  	return window.tools.url('/public/images/logo.png');
+  }*/
 	},
 	mounted: function mounted() {
-		this.getMenus();
-		console.log('Menu mounted.');
+		//this.getMenus();
+		//console.log('Menu mounted.');
 	}
 });
 

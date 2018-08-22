@@ -65,7 +65,7 @@
 			}
 		},
 		methods:{
-			mountMenu(){
+			/*mountMenu(){
 				window.public_vars.$body	 	 	= $("body");
 				window.public_vars.$pageContainer  = public_vars.$body.find(".page-container");
 				window.public_vars.$chat 			= public_vars.$pageContainer.find('#chat');
@@ -100,11 +100,11 @@
 			},
 			logo(){
 				return window.tools.url('/public/images/logo.png');
-			}
+			}*/
 		},
         mounted() {
-        	this.getMenus();
-            console.log('Menu mounted.');
+        	//this.getMenus();
+            //console.log('Menu mounted.');
         }
     }
 </script>

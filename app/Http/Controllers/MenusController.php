@@ -16,11 +16,11 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $id=JWTAuth::authenticate()->id;
-        $user=User::find($id);
-        $perms=$user->getAllPermissions();
-        $menus=[];
-        foreach ($perms as $key => $value) {
+        //$id=JWTAuth::authenticate()->codigo;
+        //$user=User::find($id);
+        //$perms=$user->getAllPermissions();
+        //$menus=[];
+        /*foreach ($perms as $key => $value) {
             $menu=Menu::where('permissions_name',$value->name)->where('parent',null)->get();
             foreach ($menu as $k => $v) {
                 $v->subMenus;
@@ -29,7 +29,7 @@ class MenusController extends Controller
 
         }
 
-        return response()->json($menus);
+        return response()->json($menus);*/
 
     }
 

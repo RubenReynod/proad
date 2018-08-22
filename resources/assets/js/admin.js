@@ -52,14 +52,14 @@ var app = new Vue({
     },
     methods:{
     	auth:function(){
-    		axios.get(tools.url("/api/me")).then((response)=>{
-		    	this.user=response.data.user;
+    		axios.get(tools.url("/api/session")).then((response)=>{
+		    	//this.user=response.data.user;
 		    	this.logged=true;
 		    	if(this.$route.path=="/login"){
 		    		this.$router.push('/home');
 		    	}
-                this.alert.msg="Bienvenido "+this.user.name;
-                tools.push("Bienvenido "+this.user.name);
+                this.alert.msg="Bienvenido "+this.user.nombre;
+                tools.push("Bienvenido "+this.user.nombre);
 		        
 		    }).catch((error)=>{
 		    	console.log(error);
@@ -79,7 +79,7 @@ var app = new Vue({
                 this.alert.msg=msg;
             },200);
         },
-        handleErrors:function(errors){
+        /*handleErrors:function(errors){
             var err="";
 
             if (errors.response) {
@@ -102,8 +102,8 @@ var app = new Vue({
 
             this.showMessage(err,"danger");
 
-        },
-        validateAll:function(successFn,errorFn){
+        },*/
+        /*validateAll:function(successFn,errorFn){
             
             let promises = [];
             let isValid=false;
@@ -139,12 +139,11 @@ var app = new Vue({
                 }
             });
                            
-        },
+        },*/
     },
     mounted:function(){
-    	if(localStorage.token){
-    		
-    		this.token=localStorage.token;
+    	if(localStorage.token){  	
+    		this.token=localStorage.token;  
     		window.axios.defaults.headers.common['Authorization'] = this.token;
     		this.auth();
     	}

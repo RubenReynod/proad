@@ -26,6 +26,10 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function username()
+    {
+        return 'codigo';
+    }
     public function index()
     {
         $users=User::all();

@@ -114,17 +114,17 @@
 			}
 		},
 		computed:{
-			unreaded:function(){
+			/*unreaded:function(){
 				let unread=jQuery.map(this.notification,(row)=>{
 					if(row.unread==0)
 						return row;
 				});
 
 				return unread.length;
-			},
+			},*/
 		},
 		methods:{
-			profile(){
+			/*profile(){
 				return window.tools.url('/img/'+this.$parent.user.img.key);
 			},
 			logout(){
@@ -161,10 +161,10 @@
 				.catch(()=>{
 					// this.$parent.inPetition=false;
 				});
-			}			
+			}	*/		
 		},
         mounted() {
-            this.getNotifications();
+            //this.getNotifications();
         }
     }
 </script>
