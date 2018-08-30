@@ -8,17 +8,14 @@
 </head>
 <body class="page-body login-page">
 	<div id="app" style="height: 100%;">
-		<div v-if="logged" style="height: 100%;" class="page-fade">
-			<div class="page-container">
-				<admin-menu ref="menu"></admin-menu>
-				<div class="main-content">
-					<admin-header ref="header"></admin-header>
-					<hr>
-					<messages ref="messages" :vclass="alert.class" :msg="alert.msg"></messages>
-					<router-view ref="view"></router-view>
-					<loading-spinner :loading="inPetition" color="cyan"></loading-spinner>
-										
-					<admin-footer ref="footer"></admin-footer>
+		<div v-if="logged" class="container-fluid" id="home">
+			<logout></logout>
+			<div class="row h-100">
+				<div class="col h-100 pr-0 pl-0 content_menu">
+					<admin-menu></admin-menu>
+				</div>
+				<div class="col">
+					
 				</div>
 			</div>
 		</div>

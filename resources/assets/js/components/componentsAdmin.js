@@ -20,6 +20,7 @@ function plugin (Vue) {
 	Vue.component('switch-form', require(page+'shared/checkbox-switch.vue'));
 	Vue.component('file-form', require(page+'shared/file.vue'));
 	Vue.component('text-form', require(page+'shared/text.vue'));
+	Vue.component('logout', require(page+'shared/logout.vue'));
 	Vue.component('login', require(page+'login.vue'));
 }
 

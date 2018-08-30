@@ -1,6 +1,9 @@
 <template>
-	<div class="row">
-		<!--<div class="col-md-offset-2 col-md-8">
+	<div id="home">
+		<logout></logout>
+	</div>
+	<!--<div class="row">
+		<div class="col-md-offset-2 col-md-8">
 			<div class="profile-env"> 
 				<header class="row"> 
 					<div class="col-sm-2"> <a class="profile-picture"> 
@@ -57,8 +60,8 @@
 					</div>
 				</section>
 			</div>
-		</div>-->
-	</div>
+		</div>
+	</div>-->
 </template>
 <script type="text/javascript">
 	export default {

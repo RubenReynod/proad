@@ -53,7 +53,7 @@ var app = new Vue({
     methods:{
     	auth:function(){
     		axios.get(tools.url("/api/session")).then((response)=>{
-		    	//this.user=response.data.user;
+		    	this.user=response.data.user;
 		    	this.logged=true;
 		    	if(this.$route.path=="/login"){
 		    		this.$router.push('/home');

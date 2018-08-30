@@ -70,6 +70,53 @@
     }
 }
 /* ============= Login ============== */
+/* ============= Home ============== */
+#home{
+    background: #fff;
+    min-height: 100vh;
+}
+/* ============= Home ============== */
+/* ============= Logout ============== */
+#logout{
+    position: fixed;
+    top: 0;
+    right: 30px;
+    color: #fff;
+    background: $color--background;
+    padding: 5px 15px;
+    border-radius: 0 0 8px 8px;
+    cursor: pointer;
+    @include transition(500ms);
+    z-index: 50;
+    i{
+        padding-left: 15px;
+    }
+    &:hover{
+        background: $color--background + 30px;
+    }
+}
+/* ============= Logout ============== */
+/* ============= Menu ============== */
+.content_menu{
+    max-width: 260px;
+    #menu{
+        background: $color--background;
+        border-radius: 0 15px 15px 0;
+        height: 100%;
+        min-height: 100vh;
+        .logo{
+            position: relative;
+            height: 200px;
+            border-bottom: 2px solid #fff;
+            img{
+                max-width: 80%;
+                max-height: 80%;
+                @extend %center-align;
+            }
+        }
+    }
+}
+/* ============= Menu ============== */
 
 a{
 	cursor:pointer;

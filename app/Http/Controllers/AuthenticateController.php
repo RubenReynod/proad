@@ -43,11 +43,11 @@ class AuthenticateController extends Controller
     }
 
     //Metodo de logout
-    /*public function logout(){
+    public function logout(){
         $token=JWTAuth::getToken();
     	JWTAuth::invalidate($token);
     	return response()->json(["msg"=>"Nos vemos!"],200);
-    }*/
+    }
 
     //Metodo para obtener informacion del usuario loggeado
     public function session(){

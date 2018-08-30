@@ -1,7 +1,7 @@
 /* ================== Variables =================== */
 $color--background: #009999;
 /* ================== Variables =================== */
-/* ================== Toolbox =================== */
+/* ================ Mixins (include) ================== */
 @mixin cp-property($property,$style){
     #{$property} : $style;
     -webkit-#{$property} : $style;
@@ -10,16 +10,35 @@ $color--background: #009999;
     -sm-#{$property} : $style;
 }
 
+@mixin cp-style($property,$style,$val){
+    #{$property} : $style#{$val};
+    #{$property} : -webkit-$style#{$val};
+    #{$property} : -moz-$style#{$val};
+    #{$property} : -o-$style#{$val};
+    #{$property} : -sm-$style#{$val};
+}
+
+@mixin transition($time,$oder:unquote('')){
+    @include cp-property(transition, $time $oder);
+}
+/* ================ Mixins (include) ================== */
+/* ================ Herencias (extend) ================== */
 %center-align{
-	position: absolute;
+    position: absolute;
     @include cp-property(transform,translateX(-50%) translateY(-50%));
     left: 50%;
     top: 50%;
 }
 
 %vertical-align{
-	position: absolute;
-    @include cp-property(transform,translateY(-50%));
+    position: absolute;
+    @include cp-property(transform, translateY(-50%));
     top: 50%;
 }
-/* ================== Toolbox =================== */
+
+%horizontal-align{
+    position: absolute;
+    @include cp-property(transform, translateX(-50%));
+    left: 50%;
+}
+/* ================ Herencias (extend) ================== */
