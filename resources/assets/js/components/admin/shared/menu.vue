@@ -5,8 +5,23 @@
 				<img src="public/images/logo.png">
 			</div>
 			<ul>
-				<li><p>Inicio</p><i class="fas fa-home"></i></li>
-				<li><p>Avances programaticos</p><i class="fas fa-book"></i></li>
+				<li class="mainBn"><p>Inicio</p><div class="icon"><i class="fas fa-home"></i></div></li>
+				<li class="mainBn">
+					<p>Avances programaticos</p>
+					<div class="icon">
+						<i class="fas fa-book"></i>
+						
+					</div>
+					<ul v-bind:class="{ active : statusMenu=='avance' }">
+						<li>Materias</li>
+						<li>Unidades</li>
+						<li>Subtemas</li>
+					</ul>
+					<div class="btn_submenu" v-on:click="statusMenu=statusMenu=='avance'?'':'avance'">
+						<i class="fas fa-chevron-down" v-if="statusMenu!='avance'"></i>
+						<i class="fas fa-chevron-up" v-else></i>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</div>
@@ -16,6 +31,7 @@
 	export default {
 		data(){
 			return {
+				statusMenu: '',
 				menu:{}
 			}
 		},

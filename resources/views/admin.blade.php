@@ -14,8 +14,11 @@
 				<div class="col h-100 pr-0 pl-0 content_menu">
 					<admin-menu></admin-menu>
 				</div>
-				<div class="col">
-					
+				<div class="col pr-0 pl-0">
+					<div class="info-user"></div>
+					<div class="Views">
+						<router-view ref="view"></router-view>	
+					</div>
 				</div>
 			</div>
 		</div>

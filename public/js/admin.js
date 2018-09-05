@@ -75584,10 +75584,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
+			statusMenu: '',
 			menu: {}
 		};
 	},
@@ -75604,31 +75620,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { attrs: { id: "menu" } }, [
+    _c("nav", [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("ul", [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("li", { staticClass: "mainBn" }, [
+          _c("p", [_vm._v("Avances programaticos")]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _c("ul", { class: { active: _vm.statusMenu == "avance" } }, [
+            _c("li", [_vm._v("Materias")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Unidades")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("Subtemas")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "btn_submenu",
+              on: {
+                click: function($event) {
+                  _vm.statusMenu = _vm.statusMenu == "avance" ? "" : "avance"
+                }
+              }
+            },
+            [
+              _vm.statusMenu != "avance"
+                ? _c("i", { staticClass: "fas fa-chevron-down" })
+                : _c("i", { staticClass: "fas fa-chevron-up" })
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "menu" } }, [
-      _c("nav", [
-        _c("div", { staticClass: "logo" }, [
-          _c("img", { attrs: { src: "public/images/logo.png" } })
-        ]),
-        _vm._v(" "),
-        _c("ul", [
-          _c("li", [
-            _c("p", [_vm._v("Inicio")]),
-            _c("i", { staticClass: "fas fa-home" })
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("p", [_vm._v("Avances programaticos")]),
-            _c("i", { staticClass: "fas fa-book" })
-          ])
-        ])
+    return _c("div", { staticClass: "logo" }, [
+      _c("img", { attrs: { src: "public/images/logo.png" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "mainBn" }, [
+      _c("p", [_vm._v("Inicio")]),
+      _c("div", { staticClass: "icon" }, [
+        _c("i", { staticClass: "fas fa-home" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-book" })
     ])
   }
 ]

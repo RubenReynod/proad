@@ -13,8 +13,8 @@ class ProfesoresTableSeeder extends Seeder
     {
         //
         DB::table('profesores')->insert([
-            'codigo' => "111111",
-            'contraseña' => Hash::make("proad123"),
+            'codigo' => "1234",
+            'contraseña' => Hash::make("proad"),
             //'contraseña' => bcrypt("proad123"),
             'nombre' => "cesar",
             'apellidoP' => "Carrillo",
