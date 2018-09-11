@@ -77504,11 +77504,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.post('/api/logout').then(function (resp) {
-				_this.$parent.user = {};
-				_this.$parent.token = "";
+				_this.$root.user = {};
+				_this.$root.token = "";
 				localStorage.removeItem('token');
-				_this.$parent.logged = false;
-				_this.$router.push('/');
+				_this.$root.logged = false;
+				_this.$root.push('/');
 				_this.inPetition = false;
 			}).catch(function (error) {});
 		}

@@ -20,7 +20,7 @@ class CreateProfesoresTable extends Migration
             $table->string('apellidoP',30);
             $table->string('apellidoM',30);
             $table->enum('estatus',['activo','inactivo'])->default('activo');
-            $table->string('contraseña',16);
+            $table->string('password');
             $table->enum('sexo',['hombre','mujer']);
             $table->timestamps();
         });

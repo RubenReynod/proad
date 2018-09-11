@@ -8,11 +8,11 @@
 		methods:{
 			logout: function(){
                 axios.post('/api/logout').then((resp) => {
-                    this.$parent.user={};
-			    	this.$parent.token="";
+                    this.$root.user={};
+			    	this.$root.token="";
 			    	localStorage.removeItem('token');
-			    	this.$parent.logged=false;
-			    	this.$router.push('/');
+			    	this.$root.logged=false;
+			    	this.$root.push('/');
 			        this.inPetition=false;
                 }).catch((error) => {
 
