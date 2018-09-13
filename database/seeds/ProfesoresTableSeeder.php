@@ -15,7 +15,6 @@ class ProfesoresTableSeeder extends Seeder
         DB::table('profesores')->insert([
             'codigo' => "1234",
             'password' => Hash::make("proad"),
-            //'contraseña' => bcrypt("proad123"),
             'nombre' => "cesar",
             'apellidoP' => "Carrillo",
             'apellidoM' => "Blanquel",

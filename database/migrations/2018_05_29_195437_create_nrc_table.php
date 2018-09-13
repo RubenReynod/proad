@@ -16,6 +16,7 @@ class CreateNrcTable extends Migration
         Schema::create('nrc', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('nrc',10);
             $table->integer('id_profesor')->unsigned();
             //Relations
             $table->foreign('id_profesor')->references('codigo')->on('profesores');
