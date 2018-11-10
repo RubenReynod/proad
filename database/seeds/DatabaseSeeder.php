@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CiclosTableSeeder::class);
         $this->call(CarrerasTableSeeder::class);
         $this->call(DepartamentosTableSeeder::class);
+        $this->call(NrcTableseeder::class);
     }
 }

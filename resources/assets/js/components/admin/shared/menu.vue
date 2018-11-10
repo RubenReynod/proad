@@ -4,6 +4,10 @@
 			<div class="logo">
 				<img src="public/images/logo.png">
 			</div>
+			<div class="user">
+				 <p><i class="fas fa-user"></i>{{ $parent.user.nombre+' '+$parent.user.apellidoP+' '+$parent.user.apellidoM }}</p>
+			</div>
+			<p class="title-menu">MENU</p>
 			<ul>
 				<li class="mainBn"><p>Inicio</p><div class="icon"><i class="fas fa-home"></i></div></li>
 				<li class="mainBn">

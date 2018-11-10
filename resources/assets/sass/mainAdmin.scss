@@ -106,12 +106,34 @@
         min-height: 100vh;
         .logo{
             position: relative;
-            height: 200px;
+            height: 100px;
+            background: rgba(0,0,0,0.1);
             img{
                 max-width: 80%;
-                max-height: 80%;
-                @extend %center-align;
+                max-height: 90%;
+                @extend %vertical-align;
+                left: 10px;
             }
+        }
+        .user{
+            padding: 0 15px 15px 15px;
+            background: rgba(0,0,0,0.1);
+            p{
+                margin-bottom: 0;
+                color: #fff;
+                i{
+                    margin-right: 10px;
+                }
+            }
+        }
+        .title-menu{
+            margin-bottom: 0;
+            color: white;
+            padding-left: 15px;
+            border-bottom: 7px solid white;
+            font-weight: bold;
+            margin-bottom: 0;
+            background: rgba(0,0,0,0.1);
         }
         ul{
             padding-left: 0px;

@@ -10464,7 +10464,7 @@ a.text-dark:hover, a.text-dark:focus {
 /* ================ Mixins (include) ================== */
 /* ================ Mixins (include) ================== */
 /* ================ Herencias (extend) ================== */
-#login .img-fondo, #login .login, .content_menu #menu .logo img, .content_menu #menu ul .mainBn .icon i, .content_menu #menu ul .mainBn .btn_submenu i {
+#login .img-fondo, #login .login, .content_menu #menu ul .mainBn .icon i, .content_menu #menu ul .mainBn .btn_submenu i {
   position: absolute;
   transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
@@ -10475,7 +10475,7 @@ a.text-dark:hover, a.text-dark:focus {
   top: 50%;
 }
 
-#login .login .input-content i {
+#login .login .input-content i, .content_menu #menu .logo img {
   position: absolute;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
@@ -10622,12 +10622,38 @@ a.text-dark:hover, a.text-dark:focus {
 
 .content_menu #menu .logo {
   position: relative;
-  height: 200px;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .content_menu #menu .logo img {
   max-width: 80%;
-  max-height: 80%;
+  max-height: 90%;
+  left: 10px;
+}
+
+.content_menu #menu .user {
+  padding: 0 15px 15px 15px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.content_menu #menu .user p {
+  margin-bottom: 0;
+  color: #fff;
+}
+
+.content_menu #menu .user p i {
+  margin-right: 10px;
+}
+
+.content_menu #menu .title-menu {
+  margin-bottom: 0;
+  color: white;
+  padding-left: 15px;
+  border-bottom: 7px solid white;
+  font-weight: bold;
+  margin-bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .content_menu #menu ul {
